@@ -3,11 +3,11 @@ sudo apt-get install git -y && sudo apt-get install -yq openjdk-8-jdk && sudo up
 
 
 
-git clone -b GSP166 https://github.com/chriskyfung/My-Qwiklabs-SpeedRun-Tank
+git clone -b GSP166 https://github.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets
 
 
 
-cd ~/My-Qwiklabs-SpeedRun-Tank/courses/developingapps/java/devenv/
+cd ~/Qwik-SpeedRun-Cheat-Sheets/courses/developingapps/java/devenv/
 
 mvn clean install
 mvn spring-boot:run
