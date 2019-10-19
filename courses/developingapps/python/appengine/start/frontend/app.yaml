@@ -1,0 +1,5 @@
+runtime: python
+env: flex
+entrypoint: "gunicorn -b 0.0.0.0:8080 quiz:app"
+env_variables:
+  GCLOUD_BUCKET: "%env(string:PROJECT_ID)%-media"
