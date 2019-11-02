@@ -34,9 +34,9 @@ sudo apt-get -y install python-mpltoolkits.basemap
 git --version
 
 # Ingest USGS data
-git clone -b GSP008 https://github.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets
+git clone https://github.com/GoogleCloudPlatform/training-data-analyst
 
-cd Qwik-SpeedRun-Cheat-Sheets/CPB100/lab2b
+cd training-data-analyst/CPB100/lab2b
 bash ingest.sh
 ```
 
