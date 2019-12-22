@@ -63,6 +63,7 @@ SELECT end_station_name, COUNT(*) AS num FROM `bigquery-public-data.london_bicyc
 ## Upload CSV files to Cloud Storage
 
 Create a cloud storage bucket.
+Enter a *unique name* for your bucket, keep all other settings, and hit **Create**:
 **Check my progress**
 
 Upload CSV files to Cloud Storage.
@@ -105,3 +106,14 @@ In your Cloud SQL instance page, click **IMPORT**.
 
 **end_station_data.csv** to **bike**
 `london2`
+
+* * *
+
+## Finished
+
+```sql
+SELECT start_station_name AS top_stations, num FROM london1 WHERE num>100000
+UNION
+SELECT end_station_name, num FROM london2 WHERE num>100000
+ORDER BY top_stations DESC;
+```
