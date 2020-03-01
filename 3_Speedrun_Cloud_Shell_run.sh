@@ -1,6 +1,6 @@
-cd ~/My-Qwiklabs-SpeedRun-Tank/courses/developingapps/python/appengine/start
+cd ~/Qwik-SpeedRun-Cheat-Sheets/courses/developingapps/python/appengine/start
 
-nano frontend/quiz/webapp/templates/home.html frontend/quiz/webapp/templates/home.html
+cat frontend/quiz/webapp/templates/home.html
 
 mv frontend/quiz/webapp/templates/home.html frontend/quiz/webapp/templates/homev1.html
 
