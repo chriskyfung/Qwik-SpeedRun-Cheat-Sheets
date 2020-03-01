@@ -1,3 +1,5 @@
+#git clone https://github.com/GoogleCloudPlatform/training-data-analyst
+#cd ~/training-data-analyst/courses/developingapps/java/cloudstorage/start
 git clone -b GSP168 https://github.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets/
 cd ~/Qwik-SpeedRun-Cheat-Sheets/courses/developingapps/java/cloudstorage/start
 . prepare_environment.sh
