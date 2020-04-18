@@ -1,6 +1,6 @@
 # **GSP313** Google Cloud Essentials: Challenge Lab
 
-Last update: 2020-03-21
+Last update: 2020-04-18
 
 1. Create a project jumphost instance (zone: us-east1-b)
 2. Create a Kubernetes service cluster
@@ -142,6 +142,8 @@ List the compute engine instances and you should see all of the instances create
 ```bash
 gcloud compute instances list
 ```
+
+**Wait Until All Instances Created**
 
 Now configure a firewall so that you can connect to the machines on port 80 via the `EXTERNAL_IP` addresses:
 
