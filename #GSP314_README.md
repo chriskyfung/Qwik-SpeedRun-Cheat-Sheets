@@ -6,6 +6,9 @@
 2. Setup the Admin instance
 3. Verify the Spinnaker deployment
 
+![](/img/lab_provisioning.png)
+
+![](/img/deployment-manager.png)
 
 ## Task 1: Create the production environment
 
@@ -27,6 +30,7 @@ cd /work/dm
 
 ls
 ```
+![](/img/jumphost-ssh.png)
 
 4. Replace `SET_REGION` to **us-east1** in `prod-network.yaml`
 
@@ -40,11 +44,19 @@ cat prod-network.yaml
 gcloud deployment-manager deployments create kraken-prod-vpc --config prod-network.yaml
 ```
 
+![](/img/create-kraken-prod-vpc.png)
+
 #### Create a cluster 
 
+Click on Navigation menu > Kubernetes Engine > Cluster
+
 ```bash
-gcloud beta container --project "qwiklabs-gcp-04-b9ca20b80018" clusters create "kraken-prod" --zone "us-east1-b" --num-nodes "2" --network "projects/qwiklabs-gcp-04-b9ca20b80018/global/networks/kraken-prod-vpc" --subnetwork "projects/qwiklabs-gcp-04-b9ca20b80018/regions/us-east1/subnetworks/kraken-prod-subnet" 
+gcloud beta container --project "$project" clusters create "kraken-prod" --zone "us-east1-b" --num-nodes "2" --network "projects/$project/global/networks/kraken-prod-vpc" --subnetwork "projects/$project/regions/us-east1/subnetworks/kraken-prod-subnet" 
 ```
+
+![](kraken-prod-cluster.png)
+
+![](/img/work-k8s.png)
 
 ```bash
 cd /work/k8s
@@ -66,6 +78,8 @@ kubectl create -f service-prod-frontend.yaml
 
 kubectl get services
 ```
+
+![](/img/deploy-pods-and-services.png)
 
 **Click Check my progress to verify the objective.**
 
@@ -106,8 +120,10 @@ _Create the Production Environment_
 | --       | --                   |
 | Network	| kraken-prod-vpc
 | Subnetwork|	kraken-prod-subnet |
-| Network	| kraken-prod-vpc
+| Network	| kraken-mgmt-vpc
 | Subnetwork|	kraken-mgmt-subnet |
+
+![](/img/kraken-admin-network.png)
 
 ### Create a Monitoring workspace
 
@@ -122,6 +138,8 @@ Metric `compute.googleapis.com/instance/cpu/utilization`
 
 Threshold: 0.5 for 1 minute.
 
+![](/img/alerting.png)
+
 ## Task 3: Verify the Spinnaker deployment
 
 #### Connect the Spinnaker console.
@@ -130,15 +148,33 @@ Threshold: 0.5 for 1 minute.
 
 2. Search **spin-deck**, and click **Port Forward**
 
+![](/img/spin-deck.png)
+![](/img/port-forwarding.png)
+![](/img/port-forwarding-cmd.png)
+
 3. To open the Spinnaker user interface, click the **Web Preview** icon at the top of the Cloud Shell window and select **Preview on port 8080**.
+
+![](/img/spinnaker.png)
+
+#### Configure your build triggers
+
+![](/img/cloud-build-trigger.png)
 
 #### Clone your source code repository
 
-1. 
+![](/img/clone-sample-app.png)
 
-3. In Cloud Shell tab and download the sample application source code:
+![](/img/sample-app-v100.png)
+
+1. In Cloud Shell tab and download the sample application source code:
 
 ```bash
+gcloud source repos clone sample-app --project=$project
+
+cd sample-app
+
+ls
+
 git config --list
 
 export PROJECT=$(gcloud info --format='value(config.project)')
@@ -149,7 +185,27 @@ config get-value core/account)"
 git config --global user.name $PROJECT
 ```
 
+![](/img/git_config.png)
 
+### Triggering your pipeline from code changes
 
- Triggering your pipeline from code changes
+```bash
+sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
+git commit -a -m "Change color to blue"
 
+git tag v1.0.1
+
+git push --tags
+```
+
+![](/img/git-commit.png)
+
+In the Console, in **Cloud Build** > **History**
+
+![](/img/build-history-v101.png)
+
+Return to the Spinnaker UI and click **Pipelines** to watch the pipeline start to deploy the image to production.
+
+![](/img/spinnaker-deploy.png)
+
+![](/img/sample-app-v101.png)
