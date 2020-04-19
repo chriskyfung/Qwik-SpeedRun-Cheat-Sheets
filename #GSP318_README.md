@@ -89,7 +89,7 @@ cd k8s
 
 gcloud container clusters get-credentials valkyrie-dev --zone us-east1-d --project $PROJECT_ID
 
-sed -i 's/IMAGE_HERE/gcr.io\/$PROJECT_ID\/valkyrie-app:v0.0.1/g' deployment.yaml
+sed -i 's/IMAGE_HERE/gcr.io\/'"${PROJECT_ID}"'\/valkyrie-app:v0.0.1/g' deployment.yaml
 
 kubectl create -f deployment.yaml
 
@@ -121,8 +121,11 @@ docker build -t valkyrie-app:v0.0.2 .
 
 docker images
 
+docker container kill $(docker ps -q)
+
 docker run -p 8080:8080 --name valkyrie-app valkyrie-app:v0.0.2 &
 ```
+![](/img/valkyrie-app-v0.0.2.png)
 
 ```bash
 docker tag valkyrie-app:v0.0.2 gcr.io/$PROJECT_ID/valkyrie-app:v0.0.2
@@ -139,6 +142,8 @@ _Update the deployment with a new version of valkyrie-app_
 ## Task 6: Create a pipeline in Jenkins to deploy your app
 
 ```bash
+docker container kill $(docker ps -q)
+
 printf $(kubectl get secret cd-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
 
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=cd" -o jsonpath="{.items[0].metadata.name}")
@@ -153,11 +158,17 @@ kubectl port-forward $POD_NAME 8080:8080 >> /dev/null &
 
 **Stip 2**: Click **Jenkins**
 
+![](/img/jenkins-credentials.png)
+
 **Step 3**: Click **Global credentials (unrestricted)**.
+
+![](/img/jenkins-global-credentials.png)
 
 **Step 4**: Click **Add Credentials** in the left navigation.
 
 **Step 5**: Select **Google Service Account from metadata** from the **Kind** drop-down and click **OK**.
+
+![](/img/jenkins-google-sa-credentials.png)
 
 #### Creating the Jenkins job
 
@@ -181,12 +192,17 @@ echo "https://source.developers.google.com/p/${PROJECT_ID}/r/valkyrie-app"
 
 **Step 7**: Your job configuration should look like this:
 
+![](/img/Multibranch_Pipeline.png)
+
 #### Make two changes to your files before you commit and build:
 
 ```bash
-sed -i 's/YOUR_PROJECT/${PROJECT_ID}/g' Jenkinsfile
+sed -i -e 's/YOUR_PROJECT/'"${PROJECT_ID}"'/g' Jenkinsfile
 
 sed -i 's/green/orange/g' source/html.go
+
+git config --global user.email $PROJECT_ID
+git config --global user.name $PROJECT_ID
 
 git add *
 git commit -m 'green to orange'
@@ -194,6 +210,12 @@ git push origin master
 ```
 
 Manually trigger a build
+
+![](/img/jenkins-build-queue.png)
+
+![](/img/valkyrie-app-versions.png)
+
+![](/img/valkyrie-app-dev.2.png)
 
 **Check My Progress**
 __Create a pipeline in Jenkins to deploy your app__
