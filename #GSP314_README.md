@@ -169,7 +169,9 @@ Threshold: 0.5 for 1 minute.
 1. In Cloud Shell tab and download the sample application source code:
 
 ```bash
-gcloud source repos clone sample-app --project=$project
+export PROJECT=$(gcloud info --format='value(config.project)')
+
+git clone https://source.developers.google.com/p/$PROJECT/r/sample-app
 
 cd sample-app
 
@@ -177,10 +179,8 @@ ls
 
 git config --list
 
-export PROJECT=$(gcloud info --format='value(config.project)')
 
-git config --global user.email "$(gcloud 
-config get-value core/account)"
+git config --global user.email "$(gcloud config get-value core/account)"
 
 git config --global user.name $PROJECT
 ```
