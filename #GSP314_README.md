@@ -36,7 +36,7 @@ ls
 
 ```bash
 sed -i 's/SET_REGION/us-east1/g' prod-network.yaml
-cat prod-network.yaml 
+cat prod-network.yaml
 ```
 5. Create the **kraken-prod-vpc**
 
@@ -46,12 +46,12 @@ gcloud deployment-manager deployments create kraken-prod-vpc --config prod-netwo
 
 ![](/img/create-kraken-prod-vpc.png)
 
-#### Create a cluster 
+#### Create a cluster
 
 Click on Navigation menu > Kubernetes Engine > Cluster
 
 ```bash
-gcloud beta container --project "$project" clusters create "kraken-prod" --zone "us-east1-b" --num-nodes "2" --network "projects/$project/global/networks/kraken-prod-vpc" --subnetwork "projects/$project/regions/us-east1/subnetworks/kraken-prod-subnet" 
+gcloud beta container --project "$project" clusters create "kraken-prod" --zone "us-east1-b" --num-nodes "2" --network "projects/$project/global/networks/kraken-prod-vpc" --subnetwork "projects/$project/regions/us-east1/subnetworks/kraken-prod-subnet"
 ```
 
 ![](kraken-prod-cluster.png)
@@ -84,7 +84,6 @@ kubectl get services
 **Click Check my progress to verify the objective.**
 
 _Create the Production Environment_
-
 
 ## Task 2: Setup the Admin instance
 
@@ -191,6 +190,7 @@ git config --global user.name $PROJECT
 
 ```bash
 sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
+
 git commit -a -m "Change color to blue"
 
 git tag v1.0.1
