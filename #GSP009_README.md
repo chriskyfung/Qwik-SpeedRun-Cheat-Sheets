@@ -1,6 +1,8 @@
 GSP009 Weather Data in BigQuery
 ===
 
+Last verified: 2020-05-05
+
 **Requirements:**
 1. Explore weather data
 2. Explore New York citizen complaints data
