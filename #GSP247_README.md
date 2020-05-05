@@ -1,6 +1,7 @@
 # **GSP247** Getting Started with BQML
 
 Last update: 2020-03-21
+Last verified: 2020-05-05
 
 1. Create a BigQuery dataset
 2. Create a model to predict visitor transaction
@@ -10,7 +11,7 @@ Last update: 2020-03-21
 
 ## Open BigQuery Console
 
-Navigation menu > BigQuery
+**Navigation menu** > **BigQuery**
 
 ## Create a dataset
 
