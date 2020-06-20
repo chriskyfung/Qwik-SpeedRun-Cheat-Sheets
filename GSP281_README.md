@@ -1,7 +1,11 @@
 GSP2181 [Introduction to SQL for BigQuery and Cloud SQL](https://google.qwiklabs.com/games/447/labs/1371)
 ===
 
-Requiremnets:
+_Last update_: 2020-06-20
+
+https://youtu.be/slaKIPNzhtQ 📹
+
+**Tasks:**
 - Create a cloud storage bucket / 25
 - Upload CSV files to Cloud Storage / 25
 - Create a Cloud SQL instance /25
@@ -16,7 +20,9 @@ Requiremnets:
 instance name: 
 `qwiklabs-demo`
 
-Save **Root password**.
+Save **Root password**. // or use `abc` as password
+
+> Change the password in **SQL** > **Users** > **Root**, if forget.
 
 * * *
 
@@ -50,6 +56,7 @@ Save **Root password**.
 ```sql
 SELECT start_station_name, COUNT(*) AS num FROM `bigquery-public-data.london_bicycles.cycle_hire` GROUP BY start_station_name ORDER BY num DESC;
 ```
+
 **SAVE RESULTS** > **CSV(local file)** >
  `start_station_data.csv`
 
@@ -57,7 +64,7 @@ SELECT start_station_name, COUNT(*) AS num FROM `bigquery-public-data.london_bic
 SELECT end_station_name, COUNT(*) AS num FROM `bigquery-public-data.london_bicycles.cycle_hire` GROUP BY end_station_name ORDER BY num DESC;
 ```
 
-**SAVE RESULTS** > **CSV(local file)** > 
+**SAVE RESULTS** > **CSV(local file)** >
 `end_station_data.csv`
 
 ## Upload CSV files to Cloud Storage
