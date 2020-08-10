@@ -1,5 +1,6 @@
 # GSP489 Palo Alto Networks VM-Series Firewall: Automating Deployment with Terraform
 
+_require update_
 
 ## Configuration
 
