@@ -1,14 +1,17 @@
 # GSP787
 
+📹 ~~https://youtu.be/qqNn3BNi0Uo~~
+New https://youtu.be/eRX7IDXfZkM
+
 ## Query 1: Total Confirmed Cases
 
 ```sql
 SELECT
-    SUM(confirmed) AS total_cases_worldwide
+  SUM(cumulative_confirmed) AS total_cases_worldwide
 FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+  `bigquery-public-data.covid19_open_data.covid19_open_data`
 WHERE
-    date = "2020-04-15"
+  date = "2020-04-15"
 ```
 
 ## Query 2: Worst Affected Areas
@@ -18,8 +21,8 @@ SELECT
     COUNT(*) AS count_of_states
 FROM (
     SELECT
-        province_state AS state
-        SUM(death) AS total_deaths
+        province_state AS state,
+        SUM(deaths) AS total_deaths
     FROM
         `bigquery-public-data.covid19_jhu_csse_eu.summary`
     WHERE
@@ -32,14 +35,30 @@ FROM (
 )
 ```
 
-## Query 3: Identifying Hotspots
+```sql
+SELECT
+    COUNT(*) AS count_of_states
+FROM (
+SELECT
+    subregion1_name AS state,
+    SUM(cumulative_deceased) AS death_count
+FROM
+  `bigquery-public-data.covid19_open_data.covid19_open_data`
+WHERE
+  country_name="United States of America"
+  AND date='2020-04-10'
+GROUP BY
+  subregion1_name
+)
+WHERE death_count > 100
+```
 
-## Query 2: Worst Affected Areas
+## Query 3: Identifying Hotspots
 
 ```sql
 SELECT
     province_state AS state
-    SUM(death) AS total_confirmed_cases
+    SUM(confirmed) AS total_confirmed_cases
 FROM
     `bigquery-public-data.covid19_jhu_csse_eu.summary`
 WHERE
@@ -47,6 +66,23 @@ WHERE
     AND country_region="US"
 GROUP BY
     state
+HAVING
+    total_confirmed_cases > 1000
+ORDER BY
+    total_confirmed_cases DESC
+```
+
+```
+SELECT
+    subregion1_name AS state,
+    SUM(cumulative_confirmed) AS total_confirmed_cases
+FROM
+    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+WHERE
+    country_name="United States of America"
+    date = "2020-04-10"
+GROUP BY
+    subregion1_name
 HAVING
     total_confirmed_cases > 1000
 ORDER BY
@@ -69,19 +105,29 @@ GROUP BY
     country_region
 ```
 
+```
+SELECT
+    SUM(cumulative_confirmed) AS total_confirmed_cases,
+    SUM(cumulative_deceased) AS total_deaths,
+    (SUM(cumulative_deceased)/SUM(cumulative_confirmed))*100 AS case_fatality_ratio
+FROM
+    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+WHERE
+    country_name="Italy"
+    AND date = "2020-04-30"
+```
+
 ## Query 5: Identifying specific day
 
 ```sql
-SELECT date
-    FROM (
-        SELECT
-            date,
-            sum(deaths) AS total_deaths
-        FROM `bigquery-public-data.covid19_jhu_csse_eu.summary` 
-        WHERE country_region="Italy" 
-        GROUP BY date ORDER BY date
-        )
-WHERE total_deaths > 10000 
+SELECT
+ date
+FROM
+  `bigquery-public-data.covid19_open_data.covid19_open_data`
+WHERE
+ country_name = 'Italy'
+ AND cumulative_deceased > 10000
+ORDER BY date
 LIMIT 1
 ```
 
@@ -91,11 +137,11 @@ LIMIT 1
 WITH india_cases_by_date AS (
   SELECT
     date,
-    SUM(confirmed) AS cases
+    SUM(cumulative_confirmed) AS cases
   FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+    `bigquery-public-data.covid19_open_data.covid19_open_data`
   WHERE
-    country_region="India"
+    country_name="India"
     AND date between '2020-02-21' and '2020-03-15'
   GROUP BY
     date
@@ -116,7 +162,7 @@ SELECT
 FROM
   india_previous_day_comparison
 WHERE
-  net_new_case = 0
+  net_new_cases = 0
 ```
 
 ## Query 7: Doubling rate
@@ -129,7 +175,7 @@ WITH us_cases_by_date AS (
   FROM
     `bigquery-public-data.covid19_jhu_csse_eu.summary`
   WHERE
-    country_region="India"
+    country_name="United States of America"
     AND date between '2020-03-22' and '2020-04-20'
   GROUP BY
     date
@@ -142,18 +188,19 @@ WITH us_cases_by_date AS (
   date,
   cases,
   LAG(cases) OVER(ORDER BY date) AS previous_day,
-  cases - LAG(cases) OVER(ORDER BY date) AS net_new_cases
+  cases - LAG(cases) OVER(ORDER BY date) AS net_new_cases,
+  (cases - LAG(cases) OVER(ORDER BY date))*100/LAG(cases) OVER(ORDER BY date) AS percentage_increase
 FROM us_cases_by_date
 )
 SELECT
-  date AS Date,
+  Date,
   cases AS Confirmed_Cases_On_Day,
-  previous_day AS Confirmed_Cases_Previous_Day
-  (net_new_cases/previous_day) * 100 AS Percentage_Increase_In_Cases
+  previous_day AS Confirmed_Cases_Previous_Day,
+  percentage_increase AS Percentage_Increase_In_Cases
 FROM
   us_previous_day_comparison
-HAVING
-  Percentage_Increase_In_Cases > 10
+WHERE
+  percentage_increase > 10
 ```
 
 ## Query 8: Recovery rate
@@ -176,6 +223,35 @@ ORDER BY
 LIMIT 10
  ```
 
+```
+WITH cases_by_country AS (
+  SELECT
+    country_name AS country,
+    SUM(cumulative_confirmed) AS cases,
+    SUM(cumulative_recovered) AS recovered_cases
+  FROM
+    `bigquery-public-data.covid19_open_data.covid19_open_data`
+  WHERE
+    date="2020-05-10"
+  GROUP BY
+    country_name
+)
+
+, recovered_rate AS (
+  SELECT
+    country, cases, recovered_cases,
+    (recovered_cases * 100)/cases AS recovery_rate
+  FROM
+    cases_by_country
+)
+
+SELECT country, cases AS confirmed_cases, recovered_cases, recovery_rate
+FROM recovered_rate
+WHERE cases > 50000
+ORDER BY recovery_rate DESC
+LIMIT 10
+```
+
 ## Query 9: CDGR - Cumulative Daily Growth Rate
 
 ```sql
@@ -183,11 +259,11 @@ WITH
   france_cases AS (
   SELECT
     date,
-    SUM(confirmed) AS total_cases
+    SUM(cumulative_confirmed) AS total_cases
   FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+    `bigquery-public-data.covid19_open_data.covid19_open_data`
   WHERE
-    country_region="France"
+    country_name="France"
     AND date IN ('2020-01-24',
       '2020-05-10')
   GROUP BY
@@ -207,3 +283,17 @@ LIMIT 1
 select first_day_cases, last_day_cases, days_diff, POWER(last_day_cases/first_day_cases,1/days_diff)-1 as cdgr
 from summary
 ```
+
+## Create a Datastudio report
+
+```
+SELECT
+  date, SUM(cumulative_comfirmed) AS country_cases,
+  SUM(cumulative_deceased) AS country_deaths
+FROM
+  `bigquery-public-data.covid19_open_data.covid19_open_data`
+WEHER
+  date BETWEEN '2020-03-15'
+  AND '2020-04-30'
+  AND country_name='United States of America'
+GROUP BY date
