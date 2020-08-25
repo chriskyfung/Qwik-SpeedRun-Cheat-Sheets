@@ -1,6 +1,7 @@
 # GSP408 Troubleshooting Common SQL Errors with BigQuery
 
-Navigate to **BigQuery**
+Navigate to **BigQuery**,
+[https://console.cloud.google.com/bigquery?p=data-to-insights&page=ecommerce](https://console.cloud.google.com/bigquery?p=data-to-insights&page=ecommerce)
 
 ## Find the total number of customers who went through checkout
 
@@ -138,7 +139,7 @@ ORDER BY distinct_visitors DESC
 ```
 
 > Which city had the most distinct visitors? Ignore the value: 'not available in this demo dataset'
-> Mountain View
+> - **Mountain View**
 
 What's wrong with the following query?
 
@@ -190,11 +191,10 @@ FROM `data-to-insights.ecommerce.rev_transactions`
 GROUP BY 1,2
 ```
 > What is wrong with the previous query?
+> - **Large GROUP BYs really hurt performance (consider filtering first and/or using aggregation functions)**
 > - **No aggregate functions are used**
 
 What is wrong with the following query?
-> - **Large GROUP BYs really hurt performance (consider filtering first and/or using aggregation functions)**
-> - **No aggregate functions are used**
 
 ```sql
 #standardSQL
@@ -223,7 +223,7 @@ LIMIT 5
 ```
 
 > Which category has the most distinct number of products offered?
-> (not set)
+> - **(not set)**
 
 > **Check my progress**
 > Find the total number of products in each product category
