@@ -1,5 +1,7 @@
 # GSP787
 
+_late update_: 2020-08-25
+
 📹 ~~https://youtu.be/qqNn3BNi0Uo~~
 New https://youtu.be/eRX7IDXfZkM
 
@@ -20,25 +22,6 @@ WHERE
 SELECT
     COUNT(*) AS count_of_states
 FROM (
-    SELECT
-        province_state AS state,
-        SUM(deaths) AS total_deaths
-    FROM
-        `bigquery-public-data.covid19_jhu_csse_eu.summary`
-    WHERE
-        date = "2020-04-10"
-        AND country_region="US"
-    GROUP BY
-        state
-    HAVING
-        total_deaths > 100
-)
-```
-
-```sql
-SELECT
-    COUNT(*) AS count_of_states
-FROM (
 SELECT
     subregion1_name AS state,
     SUM(cumulative_deceased) AS death_count
@@ -47,6 +30,7 @@ FROM
 WHERE
   country_name="United States of America"
   AND date='2020-04-10'
+  AND subregion1_name IS NOT NULL
 GROUP BY
   subregion1_name
 )
@@ -57,61 +41,27 @@ WHERE death_count > 100
 
 ```sql
 SELECT
-    province_state AS state
-    SUM(confirmed) AS total_confirmed_cases
-FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
-WHERE
-    date = "2020-04-10"
-    AND country_region="US"
-GROUP BY
-    state
-HAVING
-    total_confirmed_cases > 1000
-ORDER BY
-    total_confirmed_cases DESC
-```
-
-```
-SELECT
     subregion1_name AS state,
     SUM(cumulative_confirmed) AS total_confirmed_cases
 FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+    `bigquery-public-data.covid19_open_data.covid19_open_data`
 WHERE
     country_name="United States of America"
-    date = "2020-04-10"
-GROUP BY
-    subregion1_name
-HAVING
-    total_confirmed_cases > 1000
-ORDER BY
-    total_confirmed_cases DESC
+    AND date = "2020-04-10"
+GROUP BY subregion1_name
+HAVING total_confirmed_cases > 1000
+ORDER BY total_confirmed_cases DESC
 ```
 
 ## Query 4: Fatality Ratio
 
 ```sql
 SELECT
-    SUM(confirmed) AS total_confirmed_cases,
-    SUM(death) AS total_deaths,
-    (SUM(death)/SUM(confirmed)) * 100 AS case_fatality_ratio
-FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
-WHERE
-    date = "2020-04-30"
-    AND country_region="Italy"
-GROUP BY
-    country_region
-```
-
-```
-SELECT
     SUM(cumulative_confirmed) AS total_confirmed_cases,
     SUM(cumulative_deceased) AS total_deaths,
     (SUM(cumulative_deceased)/SUM(cumulative_confirmed))*100 AS case_fatality_ratio
 FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+   `bigquery-public-data.covid19_open_data.covid19_open_data`
 WHERE
     country_name="Italy"
     AND date = "2020-04-30"
@@ -171,9 +121,9 @@ WHERE
 WITH us_cases_by_date AS (
   SELECT
     date,
-    SUM(confirmed) AS cases
+    SUM( cumulative_confirmed ) AS cases
   FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
+    `bigquery-public-data.covid19_open_data.covid19_open_data`
   WHERE
     country_name="United States of America"
     AND date between '2020-03-22' and '2020-04-20'
@@ -206,24 +156,6 @@ WHERE
 ## Query 8: Recovery rate
 
 ```sql
-SELECT
-    country_region AS country,
-    SUM(recovered) AS recoverd_cases,
-    SUM(confirmed) AS confirmed_cases,
-    SUM(recovered) / SUM(confirmed) AS recovery_rate
-FROM
-    `bigquery-public-data.covid19_jhu_csse_eu.summary`
-WHERE
-    date="2020-05-10"
-    AND confirmed > 50000
-GROUP BY
-    country_region
-ORDER BY
-    recovery_rate DESC
-LIMIT 10
- ```
-
-```
 WITH cases_by_country AS (
   SELECT
     country_name AS country,
@@ -246,8 +178,10 @@ WITH cases_by_country AS (
 )
 
 SELECT country, cases AS confirmed_cases, recovered_cases, recovery_rate
-FROM recovered_rate
-WHERE cases > 50000
+FROM
+   recovered_rate
+WHERE
+   cases > 50000
 ORDER BY recovery_rate DESC
 LIMIT 10
 ```
@@ -288,12 +222,13 @@ from summary
 
 ```
 SELECT
-  date, SUM(cumulative_comfirmed) AS country_cases,
+  date, SUM( cumulative_confirmed ) AS country_cases,
   SUM(cumulative_deceased) AS country_deaths
 FROM
   `bigquery-public-data.covid19_open_data.covid19_open_data`
-WEHER
+WHERE
   date BETWEEN '2020-03-15'
   AND '2020-04-30'
   AND country_name='United States of America'
 GROUP BY date
+```
