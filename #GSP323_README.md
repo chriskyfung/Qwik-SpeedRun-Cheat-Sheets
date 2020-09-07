@@ -140,5 +140,5 @@ gsutil cp task4-gcs.result gs://${GCLOUD_PROJECT}-marking/task4-gcs.result
 
 gsutil cp task4-cnl.result gs://${GCLOUD_PROJECT}-marking/task4-cnl.result
 
-gsutil cp task4-cnl.result gs://${GCLOUD_PROJECT}-marking/task4-gvi.result
+gsutil cp task4-gvi.result gs://${GCLOUD_PROJECT}-marking/task4-gvi.result
 ```
