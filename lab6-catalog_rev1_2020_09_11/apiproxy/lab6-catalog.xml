@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="lab6-catalog">
+    <Basepaths>/v1</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1599831851786</CreatedAt>
+    <CreatedBy>chrisfung1125@gmail.com</CreatedBy>
+    <Description>Product CatalogProductsServiceImplService</Description>
+    <DisplayName>ProductsServiceImplService</DisplayName>
+    <LastModifiedAt>1599831851786</LastModifiedAt>
+    <LastModifiedBy>chrisfung1125@gmail.com</LastModifiedBy>
+    <ManifestVersion>SHA-512:46b4f8909d0534f7cf8138b8cbaaf740756688a80ad881d1160e29d1dc6a792bc549fdb9fa5e5d6154d51565dde9949c9554f9e2e4631dbbe57357aa42cf4e52</ManifestVersion>
+    <Policies>
+        <Policy>GetProducts-build-soap</Policy>
+        <Policy>GetProducts-extract-query-param</Policy>
+        <Policy>add-cors</Policy>
+        <Policy>extract-format</Policy>
+        <Policy>get-response-soap-body-xml</Policy>
+        <Policy>get-response-soap-body</Policy>
+        <Policy>impose-quota-apikey</Policy>
+        <Policy>remove-empty-nodes</Policy>
+        <Policy>remove-namespaces</Policy>
+        <Policy>remove-query-param-apikey</Policy>
+        <Policy>return-generic-error-accept</Policy>
+        <Policy>return-generic-error</Policy>
+        <Policy>return-open-api</Policy>
+        <Policy>set-response-soap-body-accept</Policy>
+        <Policy>set-response-soap-body</Policy>
+        <Policy>set-target-url</Policy>
+        <Policy>unknown-resource-xml</Policy>
+        <Policy>unknown-resource</Policy>
+        <Policy>verify-api-key</Policy>
+        <Policy>xml-to-json</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>xsl://remove-empty-nodes.xslt</Resource>
+        <Resource>xsl://remove-namespaces.xslt</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

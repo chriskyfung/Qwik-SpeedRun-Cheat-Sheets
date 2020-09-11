@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest name="manifest">
+    <Policies>
+        <VersionInfo resourceName="GetProducts-build-soap" version="SHA-512:3a26a986f5effbebf5624a3da845999f310f2f2184baf4d8be8e74d54c8d7c02f65332d334ab58bc6c09936dc92e37c615d30bac19708a10662e5114eb7d61b2"/>
+        <VersionInfo resourceName="GetProducts-extract-query-param" version="SHA-512:d27b39d25a31df91c1064eeab7dcfb036e0c35806d3f7872970b6a2dbc1c977de9dd87650b17342c1e861d70868e497c27fdd0e544a46549f33aa1eb4d78ce93"/>
+        <VersionInfo resourceName="add-cors" version="SHA-512:517142a8c7303aff9aa0343f4629b3563bb254de4baf4aa3c37668c6e3f048466d3fa65186ab7122fb27e3abe8d1661a21c6c50dc96733447964d4939175770a"/>
+        <VersionInfo resourceName="extract-format" version="SHA-512:d4fa1639b4c5c3bdd5cff9ce3da1f2c6781d7e57b6c5274083775d16288b21a3bd5adc80175bd6395a7ee5efb9791b7dabed1018727f7f28410bcccf0e34147d"/>
+        <VersionInfo resourceName="get-response-soap-body" version="SHA-512:12bf09006386286f7f258a3333aa8c7d663a3020f0240f75d1fee385b1ae4163a92f1c9d60b10950ac5108c94661b015ce7021e4d97c160e9676426f7b5aff23"/>
+        <VersionInfo resourceName="get-response-soap-body-xml" version="SHA-512:7541e5ebf3ef6fc3cce4f30039f0be1db603a69e80aaac5e8296287a5f444f49d2ce42d5aedb5c8955a2da1bad5af688187066d6cba24e4896d75cae4b1142e3"/>
+        <VersionInfo resourceName="impose-quota-apikey" version="SHA-512:7243136a28b7af069a6597cbdc05ec074ae78a5f87ad4e983a6ad333819f6e931d182362a6fa532ef582012a5523f22470e829dc781c74709cdd4bd37c3adbed"/>
+        <VersionInfo resourceName="remove-empty-nodes" version="SHA-512:62dab4905ae831bdedd09e4bc05c78ab9a9bfbcb064dcbc3bce9ec268863b344be9fa12db0a860d8be91743bd667779a79d5de8fea79617de3de74e89e75d567"/>
+        <VersionInfo resourceName="remove-namespaces" version="SHA-512:8247defbc26497c737439e3ad193351ae91db1291232c529a7028c3f4d784167e193d1bcb73c7b6a88ad03d2111cfb67f6cacaa5b3ee41a5d395112619afd038"/>
+        <VersionInfo resourceName="remove-query-param-apikey" version="SHA-512:bebd2e662024f852231175e62f9aa7367aec21aa9ab4541f19e85d7d0f5d8dabe69cd2aea0ef00676549e0e7867693a907b8f661a0a7a4773587fd135a3b5f09"/>
+        <VersionInfo resourceName="return-generic-error" version="SHA-512:5b6396e6398e23053298f9ce4f748379842b927e6424f9ef9632d04234e2e86bd29f0ff606e6cafaa5eeaed204b4eaacbdca397b06297f4e63299dabb9afe087"/>
+        <VersionInfo resourceName="return-generic-error-accept" version="SHA-512:5bf7564d069779e518f04948b0d0b7db3b8136659c7249e5fcb006498ffb8080c010bde02acc3581b807529982c65f1af491c14a9364906c681f8ca8f6fccf1b"/>
+        <VersionInfo resourceName="return-open-api" version="SHA-512:8d542f3ac465e70c6f33bf53e90dc45e1a809386bcfd7dd9fcd71786493fc477f11d8f34a795789038f3d7a62f243a38b95ff868d9830538d40cc021a09a5bd8"/>
+        <VersionInfo resourceName="set-response-soap-body" version="SHA-512:aa8cd85f80fa48a4a6d214f682630bf2dfb71beac3dd1c767cac9181bf1426d91197c71ba4294590640ff79f6128d73502b53c0e3e2c06853afe4367bdfad4f1"/>
+        <VersionInfo resourceName="set-response-soap-body-accept" version="SHA-512:b944bc0683de15f5e537b1d8207160f3632f817671a82e51f314370ccd2fc2d0cf8c06f073d3d617b5ffb11ecf51c092f6068470e550504f5ad76bf154c2f665"/>
+        <VersionInfo resourceName="set-target-url" version="SHA-512:0ac8008dc7925a3a1984499f898d0cbd2b8bc90b9b0408486b0dbc2f060f04c9f5f2c34680b16db42db3094bf190d7719f0f133c9ee8ed2bac67d736f0a94a64"/>
+        <VersionInfo resourceName="unknown-resource" version="SHA-512:82c12f15557e2e180cb988b90d308a303d102fc55cf8b479080bfb3ccaf63962d77054e8147052e3fc9d279db987dc022b9f36f2437b702d128a66b59406ded0"/>
+        <VersionInfo resourceName="unknown-resource-xml" version="SHA-512:52a669fccdee573b1ac9a012ea36a1562536425ac439e1460b80950bee8e6f201f1840901c059a6c8026daef5be6cd6b6d5fdf271eee579622b3b9861418fba7"/>
+        <VersionInfo resourceName="verify-api-key" version="SHA-512:6595defb9a0b6d7fce111a9fe959f5e8a7aa03ffb301373c4c4e20e814648b42d5858631e95e4a8d698b5fe2139390c252e9011d9f1be8c3a35de73c1c269f97"/>
+        <VersionInfo resourceName="xml-to-json" version="SHA-512:1150b9d8c30023008308c40a142a85986159ecaa46bd599412d60f6c7e6cbd2ddb78ebd62b025965ece4e65e287da3774e4a90f37078e9f3e0fcf51edd896c3d"/>
+    </Policies>
+    <ProxyEndpoints>
+        <VersionInfo resourceName="default" version="SHA-512:b0378c8f51ae5ae864e966f3da70606ddee27cd3c2b9d3fe2056a5e18d7d934b7ae596f28cb5a667e6b007882414bd67f8d9a5870c5c2514b6fb3e3e96a25f90"/>
+    </ProxyEndpoints>
+    <Resources>
+        <VersionInfo resourceName="xsl://remove-empty-nodes.xslt" version="SHA-512:0fc5f4c985665011f4ac1bd5e1543058e830100e2d58adbbe5b2f479609e6dc692114dabd22ee32257ddd9bfbae70f3292cd72ca3fa22105a69e2d327a00e078"/>
+        <VersionInfo resourceName="xsl://remove-namespaces.xslt" version="SHA-512:0a3aacb4f288a297ca89589e9c230ecd302dd2fd27565d5fa2ead39068a655dc489b0c3fec6c47be0255711b167a6219a20971a3a2fc9cfb9335a65fe4c825bd"/>
+    </Resources>
+    <SharedFlows/>
+    <TargetEndpoints>
+        <VersionInfo resourceName="default" version="SHA-512:910cc43fbddef4b86dbcfe94be80eb4d3dd87cb5ef848afb7f27f7a7e37977416f1e855ce665c701792b39d651b6860fb490a863b69d78368d5f141bc835171c"/>
+    </TargetEndpoints>
+</Manifest>

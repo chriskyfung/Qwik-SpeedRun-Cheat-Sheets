@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="return-open-api">
+    <DisplayName>Return Open API</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <StatusCode>200</StatusCode>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="@" variableSuffix="#">{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ProductsServiceImplService",
+    "description": "An OAS document generated from WSDL",
+    "termsOfService": "",
+    "contact": {
+      "name": "API Team"
+    },
+    "license": {
+      "name": "Apache 2.0"
+    }
+  },
+  "host": "@request.header.host#",
+  "basePath": "/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "description": "Implements WSDL operation GetProducts",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/GetProductsResponse"
+            },
+            "description": "Successful response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "GetProducts",
+            "in": "query",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GetProductsResponse": {
+      "properties": {
+        "GetProductsReturn": {
+          "$ref": "#/definitions/GetProductsReturn"
+        }
+      },
+      "type": "object"
+    },
+    "GetProductsReturn": {
+      "properties": {
+        "products": {
+          "$ref": "#/definitions/products"
+        }
+      },
+      "type": "object"
+    },
+    "products": {
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/item"
+        }
+      },
+      "type": "object"
+    },
+    "item": {
+      "properties": {
+        "categories": {
+          "$ref": "#/definitions/categories"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "priceUsd": {
+          "$ref": "#/definitions/priceUsd"
+        }
+      },
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/definitions/item"
+      }
+    },
+    "categories": {
+      "properties": {
+        "item": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "priceUsd": {
+      "properties": {
+        "currencyCode": {
+          "type": "string"
+        },
+        "nanos": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "type": "object"
+    }
+  }
+}</Payload>
+        </Set>
+    </FaultResponse>
+</RaiseFault>
