@@ -1,5 +1,7 @@
 # GSP408 Troubleshooting Common SQL Errors with BigQuery
 
+_last verified: 2020-12-12_
+
 Navigate to **BigQuery**,
 [https://console.cloud.google.com/bigquery?p=data-to-insights&page=ecommerce](https://console.cloud.google.com/bigquery?p=data-to-insights&page=ecommerce)
 
