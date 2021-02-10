@@ -1,5 +1,6 @@
 **GSP246** Predict Taxi Fare with a BigQuery ML Forecasting Model
 
+_last verified on 2021-02-10_
 ## Open BigQuery Console
 
 **Navigation menu** > **BigQuery**
