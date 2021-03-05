@@ -1,6 +1,6 @@
 **GSP246** Predict Taxi Fare with a BigQuery ML Forecasting Model
 
-_last verified on 2021-02-10_
+_last verified on 2021-03-05_
 ## Open BigQuery Console
 
 **Navigation menu** > **BigQuery**
@@ -19,6 +19,7 @@ GROUP BY
   1
 ORDER BY
   1
+
 ```
 
 Click **Check my progress** *Calculate trips taken by Yellow taxi in each month of 2015*
@@ -43,6 +44,7 @@ GROUP BY
   1
 ORDER BY
   1
+
 ```
 
 Click **Check my progress** *Calculate the average speed of Yellow taxi trips in 2015*
@@ -78,7 +80,8 @@ WITH params AS (
   )
 
   SELECT *
-  FROM taxitrips
+  FROM 
+  
 ```
 
 Click **Check my progress** *Test whether fields are good inputs to your fare forecasting model*
@@ -96,7 +99,7 @@ Click **Check my progress** *Create a BigQuery dataset to store models*
 
 *Which model type should you choose for predicting taxi cab fare (numeric value)?*
 
-- Regression
+- Linear Regression
 
 ```sql
 CREATE or REPLACE MODEL taxi.taxifare_model
@@ -131,6 +134,7 @@ WITH params AS (
 
   SELECT *
   FROM taxitrips
+
 ```
 
 Click **Check my progress** *Create a taxifare model*
@@ -175,6 +179,7 @@ FROM
   FROM taxitrips
 
   ))
+
 ```
 
 Click **Check my progress** *Evaluate the classification model performance**
@@ -219,6 +224,7 @@ FROM
   FROM taxitrips
 
 ));
+
 ```
 
 Click **Check my progress** *Predict taxi fare amount*
@@ -235,6 +241,7 @@ SELECT
 FROM
 `nyc-tlc.yellow.trips`
 # 1,108,779,463 fares
+
 ```
 
 ```sql
@@ -248,6 +255,7 @@ FROM
 `nyc-tlc.yellow.trips`
 WHERE trip_distance > 0 AND fare_amount BETWEEN 6 and 200
 # 843,834,902 fares
+
 ```
 
 ```sql
@@ -269,6 +277,7 @@ WHERE trip_distance > 0 AND fare_amount BETWEEN 6 and 200
     AND dropoff_latitude > 40
     AND dropoff_latitude < 42
     # 827,365,869 fares
+
 ```
 
 ### Retraining the model
@@ -312,7 +321,8 @@ WHERE trip_distance > 0 AND fare_amount BETWEEN 6 and 200
   )
 
   SELECT *
-  FROM taxitrips
+  FROM 
+  
 ```
 
 ### Evaluate the new model
@@ -360,6 +370,7 @@ WHERE trip_distance > 0 AND fare_amount BETWEEN 6 and 200
   FROM taxitrips
 
   ))
+
 ```
 
 ### Test your Understanding
