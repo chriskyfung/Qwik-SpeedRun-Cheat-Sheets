@@ -1,6 +1,6 @@
 **GSP246** Predict Taxi Fare with a BigQuery ML Forecasting Model
 
-_last verified on 2021-03-05_
+_last verified on 2021-03-20_
 ## Open BigQuery Console
 
 **Navigation menu** > **BigQuery**
@@ -80,7 +80,7 @@ WITH params AS (
   )
 
   SELECT *
-  FROM 
+  FROM taxitrips
   
 ```
 
