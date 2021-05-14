@@ -48,7 +48,7 @@ ssh-keygen -t rsa -b 1024 -N '' -f ~/.ssh/lab_ssh_key
 ```bash
 cd deployment
 
-sed -i 's/gcp_project_id_HERE/'"$PROJECT_ID"'/g' gcp_variables.tf
+sed -i 's/GCP Project ID/'"$PROJECT_ID"'/g' gcp_variables.tf
 sed -i 's/PUT_gcp_region_HERE/us-central1/g' gcp_variables.tf
 
 cat gcp_variables.tf
@@ -75,10 +75,10 @@ gcloud compute config-ssh --ssh-key-file=~/.ssh/lab_ssh_key
 export VMINSTANCE=$(gcloud compute instances list --format=json | jq -r '.[].name')
 echo $VMINSTANCE
 
-export ZONE==$(gcloud compute instances list --format=json | jq -r '.[].zones[0]')
+export ZONE=us-central1-a
 export $ZONE
 
-ssh admin@$VMINSTANCE.$ZONE.PROJECT_ID
+ssh admin@$VMINSTANCE.$ZONE.$PROJECT_ID
 ```
 
 In the SSH session,
@@ -86,6 +86,13 @@ In the SSH session,
 ```bash
 configure
 set mgt-config users admin password
+```
+
+Use this as your Password. *The password will not show, so please paste the value and click enter.
+
+`Pal0Alt0@123`
+
+```bash
 commit
 exit
 exit
