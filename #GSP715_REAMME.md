@@ -1,6 +1,7 @@
 # GSP715 Palo Alto Networks: VM-Series Advanced Deployment
 
-Late update: 2020-05-09
+Latest update: 2021-05-14
+Latest verified: 2021-05-14
 
 1. Verify the creation of VMs and VPCs via Terraform.
 1. Verify the http response of public external IP for load 1. balancer.
@@ -17,7 +18,7 @@ gcloud projects list --filter=qwiklabs-gcp
 export PROJECT_ID=$(gcloud projects list --filter=qwiklabs-gcp --format=json | jq -r '.[].projectId')
 echo $PROJECT_ID
 
-sed -i /sed -i 's/project_id      = ""/project_id      = '"$PROJECT_ID"'/g' terraform.tfvars
+sed -i 's/project_id      = ""/project_id      = '"$PROJECT_ID"'/g' terraform.tfvars
 sed -n 1p terraform.tfvars
 
 terraform version
