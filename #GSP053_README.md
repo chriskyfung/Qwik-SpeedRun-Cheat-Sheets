@@ -1,9 +1,13 @@
 # **GSP053** Managing Deployments Using Kubernetes Engine
 
+_last updated on 2021-06-22_
+
 ```bash
 gcloud config set compute/zone us-central1-a
-git clone https://github.com/googlecodelabs/orchestrate-with-kubernetes.git
+
+gsutil -m cp -r gs://spls/gsp053/orchestrate-with-kubernetes .
 cd orchestrate-with-kubernetes/kubernetes
+
 gcloud container clusters create bootcamp --num-nodes 5 --scopes "https://www.googleapis.com/auth/projecthosting,storage-rw"
 
 sed -i '/kelseyhightower/s/auth:2.0.0/auth:1.0.0/' deployments/auth.yaml
@@ -26,6 +30,8 @@ kubectl create -f services/frontend.yaml
 kubectl get services frontend
 curl -ks https://`kubectl get svc frontend -o=jsonpath="{.status.loadBalancer.ingress[0].ip}"`
 ```
+
+## Create a canary deployment
 
 ```bash
 kubectl create -f deployments/hello-canary.yaml
