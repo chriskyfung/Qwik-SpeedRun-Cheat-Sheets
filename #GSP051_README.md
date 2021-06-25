@@ -8,6 +8,8 @@ git clone https://github.com/GoogleCloudPlatform/continuous-deployment-on-kubern
 
 cd continuous-deployment-on-kubernetes
 
+gcloud services enable container.googleapis.com
+
 gcloud container clusters create jenkins-cd \
 --num-nodes 2 \
 --machine-type n1-standard-2 \
@@ -62,6 +64,8 @@ kubectl get pods -n production -l app=gceme -l role=backend
 kubectl get service gceme-frontend -n production
 
 export FRONTEND_SERVICE_IP=$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].ip}" --namespace=production services gceme-frontend)
+
+echo $FRONTEND_SERVICE_IP
 
 curl http://$FRONTEND_SERVICE_IP/version
 ```
