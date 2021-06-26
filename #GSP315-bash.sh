@@ -1,5 +1,4 @@
-export PROJECT_ID=$(gcloud info --format='value(conf
-ig.project)')
+export PROJECT_ID=$(gcloud info --format='value(config.project)')
 export BUCKET=${PROJECT_ID}
 gsutil mb -c multi_regional gs://${BUCKET}
 
