@@ -53,7 +53,7 @@ for file in files:
         
         # TBD: Create a Vision API image object called image_object 
         # Ref: https://googleapis.dev/python/vision/latest/gapic/v1/types.html#google.cloud.vision_v1.types.Image
-        image_object = vision.types.Image()
+        image_object = vision_client.types.Image()
         image_object.content = file_content
 
 
