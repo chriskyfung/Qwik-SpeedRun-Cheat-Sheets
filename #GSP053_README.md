@@ -1,6 +1,7 @@
 # **GSP053** Managing Deployments Using Kubernetes Engine
 
 _last updated on 2021-06-22_
+_last verified on 2021-08-25_
 
 ```bash
 gcloud config set compute/zone us-central1-a
