@@ -1,5 +1,7 @@
 # **GSP080** Cloud Functions: Qwik Start - Command Line
 
+_last updaetd on 2021-09-16_
+_last verified on 2021-09-16_
 
 ## Create a function
 
@@ -30,7 +32,7 @@ gsutil mb -p ${PROJECT_ID} gs://${BUCKET}
 gcloud functions deploy helloWorld \
   --stage-bucket ${BUCKET} \
   --trigger-topic hello_world \
-  --runtime nodejs6
+  --runtime nodejs8
 ```
 
 **Check my progress** _Create a cloud storage bucket._
