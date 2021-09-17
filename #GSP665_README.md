@@ -1,15 +1,16 @@
 # GSP665 Exploring the Public Cryptocurrency Datasets Available in BigQuery
 
-_Last update_: 2020-06-20
+_Last update_: 2020-06-20_
+_Last verified: 2021-09-17_
 
-📹 https://youtu.be/I4UXjASFaz4
+📹 <https://youtu.be/I4UXjASFaz4>
 
-### Tasks
+## Tasks
 
 1. Check pizza query / 10
-1. Check dogecoin query / 10
-1. transaction hash query / 40
-1. Calculate balance query / 40
+2. Check dogecoin query / 10
+3. transaction hash query / 40
+4. Calculate balance query / 40
 
 ## Task 1: View the cryptocurrencies in the public dataset
 
