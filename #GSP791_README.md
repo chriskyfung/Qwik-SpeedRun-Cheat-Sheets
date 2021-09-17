@@ -1,10 +1,11 @@
 # GSP791 Design Conversational Flows for your Agent
 
 _last update_: 2020-07-18
+_Last verified_: 2021-09-17
 
-Watch → https://youtu.be/cRKMxsQqy9g
+Watch → <https://youtu.be/cRKMxsQqy9g>
 
-### Tasks
+## Tasks
 
 1. Build an Agent
 1. Create your first intent
@@ -17,7 +18,7 @@ In the Console go to **Navigation menu** > **APIs & Services** > **Dashboard**.
 
 Search for **Dialogflow API** and click **Enable**
 
-![](https://cdn.qwiklabs.com/0dpgt58U%2FhdGkF3YBRyQkz1AVGSQIiTFY6i2ZoZ6KOY%3D)
+![Enable Dialogflow API](https://cdn.qwiklabs.com/0dpgt58U%2FhdGkF3YBRyQkz1AVGSQIiTFY6i2ZoZ6KOY%3D)
 
 ## Create your first Dialogflow agent
 
@@ -40,6 +41,4 @@ Create Agent:
 
 2. name the intent: `name.reservation`
 
-.
-.
-.
+⫶
