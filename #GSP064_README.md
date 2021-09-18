@@ -1,8 +1,8 @@
 # **GSP064** Cloud IAM: Qwik Start
 
-_Last verified_: 2020-08-05
+_Last verified_: 2021-09-18
 
-**Total score: 100**
+**Total score**: **100**
 
 - Create a bucket and upload a sample file / 20
 - Remove project access / 40
@@ -32,4 +32,5 @@ _Last verified_: 2020-08-05
 4. **SAVE**
 
 > **Check my progress**
+>
 > Add Storage permissions
