@@ -1,6 +1,6 @@
 # GSP499 User Authentication: Identity-Aware Proxy
 
-_last modified: 2020-08-10_
+_last modified: 2021-09-18_
 _last verified: 2020-09-05_
 
 ### Download the Code
@@ -13,6 +13,8 @@ cd 1-HelloWorld
 
 gcloud app deploy
 ```
+
+Choose `us-central`.
 
 ### Deploy to App Engine
 
@@ -27,30 +29,32 @@ gcloud app deploy
 4. Click **CONFIGURE CONSENT SCREEN**.
 5. Select **Internal** under *User Type* and click **Create**.
 
-| Field       | Value             |
-| ---         | ---               |
-| Application name | `IAP Example`|
-| Support email |                 |
-| Authorized domain | *Do not include the starting https:// or trailing / from that URL.* |
-| Application homepage link | *The URL you used to view your app* |
-| Application privacy Policy link | /privacy |
+   | Field       | Value             |
+   | ---         | ---               |
+   | Application name | `IAP Example`|
+   | Support email |                 |
+   | Authorized domain | *Do not include the starting https:// or trailing / from that URL.* |
+   | Application homepage link | *The URL you used to view your app* |
+   | Application privacy Policy link | /privacy |
 
-7. Click **Save**.
+6. Click **Save**.
 
-> **Check my progress**
-> Restrict Access with IAP
+   > **Check my progress**
+   > Restrict Access with IAP
 
-8. Return to the Identity-Aware Proxy page and **refresh** it
-9. Toggle the IAP button in the App Engine app row.
-10. Click **TURN ON**.
+7. Return to the Identity-Aware Proxy page and **refresh** it
+8. Toggle the IAP button in the App Engine app row.
+9. Click **TURN ON**.
 
 ## Test that IAP is turned on
 
-In the sidebar of App Engine app
+1. check on **App Engine app**
 
-Click **ADD MEMBER**
+2. In the sidebar of App Engine app, click **ADD PRICIPAL**.
 
-**Cloud IAP/IAP-Secured Web App User**
+3. Add the username as **New principals**.
+
+4. Select **Cloud IAP** > **IAP-Secured Web App User** in the **Role** dropdown.
 
 Click **Save**
 
