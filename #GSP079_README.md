@@ -1,6 +1,6 @@
 # **GSP079** Getting Started with Cloud KMS
 
-_Last update_: 2020-06-06
+_Last update_: 2021-09-18
 
 ## Create a Cloud Storage bucket
 ## Check out the data
@@ -28,8 +28,6 @@ gcloud kms keys create $CRYPTOKEY_NAME --location global \
       --keyring $KEYRING_NAME \
       --purpose encryption
 ```
-
-Go to the **Navigation menu** > **IAM & Admin** > **Cryptogrphic keys** > **Go to Key Management**
 
 > **Check my progress**
 > Create a Keyring and Crypto key.
