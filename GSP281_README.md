@@ -2,7 +2,7 @@ GSP2181 [Introduction to SQL for BigQuery and Cloud SQL](https://google.qwiklabs
 ===
 
 _Last update_: 2020-06-20
-_Last verified_: 2020-12-12
+_Last verified_: 2021-10-05
 
 https://youtu.be/slaKIPNzhtQ 📹
 
