@@ -1,6 +1,7 @@
 **GSP642** Importing Data to a Firestore Database
 
 _last update: 2020-08-28_
+_last verified: 2021-10-15_
 
 ## Set up Firestore in GCP
 
