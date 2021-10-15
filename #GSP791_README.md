@@ -1,7 +1,7 @@
 # GSP791 Design Conversational Flows for your Agent
 
 _last update_: 2020-07-18
-_Last verified_: 2021-09-17
+_Last verified_: 2021-10-15
 
 Watch → <https://youtu.be/cRKMxsQqy9g>
 
