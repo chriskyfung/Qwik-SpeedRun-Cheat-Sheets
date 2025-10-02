@@ -6,7 +6,6 @@ Open [Google API Console](https://console.developers.google.com/flows/enableapi?
 
 **MUST** Enable the Google Maps JavaScript API from the Cloud Shell in order to pass the checkpoint
 
-
 ```bash
 # gcloud services enable maps-backend.googleapis.com
 gcloud config set project $DEVSHELL_PROJECT_ID
