@@ -45,9 +45,9 @@ gcloud deployment-manager deployments describe my-first-deployment
 ## Test your Understanding
 
 > Deployment configuration is written in ____ syntax and list each resource in your deployment.
-> 
+>
 > **YAML**
 
 > Deployment Manager is an infrastructure deployment service that automates the creation and management of Google Cloud resources.
-> 
+>
 > **True**
