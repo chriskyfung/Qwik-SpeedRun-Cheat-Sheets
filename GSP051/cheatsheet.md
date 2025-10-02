@@ -1,6 +1,5 @@
 # **GSP051** Continuous Delivery with Jenkins in Kubernetes Engine
 
-
 ```bash
 gcloud config set compute/zone us-east1-d
 
@@ -117,7 +116,6 @@ https://source.developers.google.com/p/[PROJECT_ID]/r/default
 ```
 
 **Step 5:** From the **Credentials** drop-down, select the name of the credentials you created when adding your service account in the previous steps.
-
 
 **Step 6:** Under **Scan Multibranch Pipeline Triggers** section, check the **Periodically if not otherwise run** box and set the **Interval** value to 1 minute.
 
