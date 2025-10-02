@@ -2,7 +2,6 @@
 
 _last verified on 2020-03-05_
 
-
 ```bash
 bq mk austin
 
