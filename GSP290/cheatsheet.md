@@ -1,8 +1,8 @@
-**GSP290** ETL Processing on GCP Using Dataflow and BigQuery
+# **GSP290** ETL Processing on GCP Using Dataflow and BigQuery
 
 _last update: 2020-12-12_
 
-##Download the Starter Code
+## Download the Starter Code
 
 ```bash
 gsutil -m cp -R gs://spls/gsp290/dataflow-python-examples .
@@ -19,22 +19,23 @@ gsutil cp gs://spls/gsp290/data_files/head_usa_names.csv gs://$PROJECT/data_file
 bq mk lake
 
 ```
+
 ## Create Cloud Storage Bucket
 
-> Click **Check my progress** 
-> *Create a Cloud Storage Bucket*
+> Click **Check my progress**
+> _Create a Cloud Storage Bucket_
 
 ## Copy Files to Your Bucket
 
 > Click **Check my progress**
-> *Copy Files to Your Bucket*
+> _Copy Files to Your Bucket_
 
 ## Create the BigQuery Dataset
 
-Click **Check my progress** *Create the BigQuery Dataset (name: lake)*
-
+Click **Check my progress** _Create the BigQuery Dataset (name: lake)_
 
 ## Data Ingestion
+
 ### Run the Apache Beam Pipeline
 
 ```
@@ -57,10 +58,10 @@ python dataflow_python_examples/data_ingestion.py --project=$PROJECT --region=us
 ```
 
 > Click **Check my progress**
-> *Build a Data Ingestion Dataflow Pipeline*
-
+> _Build a Data Ingestion Dataflow Pipeline_
 
 ## Data Transformation
+
 ### Run the Apache Beam Pipeline
 
 Open a new Cloud Shell
@@ -82,9 +83,10 @@ python dataflow_python_examples/data_transformation.py --project=$PROJECT --regi
 ```
 
 > Click **Check my progress**
-> *Build a Data Transformation Dataflow Pipeline*
+> _Build a Data Transformation Dataflow Pipeline_
 
 ## Data Enrichment
+
 ### Run the Apache Beam Pipeline
 
 Open a new Cloud Shell
@@ -106,9 +108,10 @@ python dataflow_python_examples/data_enrichment.py --project=$PROJECT --region=u
 ```
 
 > Click **Check my progress**
-> *Build a Data Enrichment Dataflow Pipeline*
+> _Build a Data Enrichment Dataflow Pipeline_
 
 ## Data lake to Mart
+
 ### Run the Apache Beam Pipeline
 
 ```
@@ -117,9 +120,10 @@ python dataflow_python_examples/data_lake_to_mart.py --worker_disk_type="compute
 ```
 
 > Click **Check my progress**
-> *Build a Data lake to Mart CoGroupByKey Dataflow Pipeline*
+> _Build a Data lake to Mart CoGroupByKey Dataflow Pipeline_
 
 ## Test your Understanding
 
 > ETL stands for ____.
+>
 > - **Extract, Transform and Load**
