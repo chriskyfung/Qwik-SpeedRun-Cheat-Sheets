@@ -1,6 +1,7 @@
 **GSP246** Predict Taxi Fare with a BigQuery ML Forecasting Model
 
 _last verified on 2021-03-20_
+
 ## Open BigQuery Console
 
 **Navigation menu** > **BigQuery**
@@ -22,7 +23,7 @@ ORDER BY
 
 ```
 
-Click **Check my progress** *Calculate trips taken by Yellow taxi in each month of 2015*
+Click **Check my progress** _Calculate trips taken by Yellow taxi in each month of 2015_
 
 ```sql
 #standardSQL
@@ -47,7 +48,7 @@ ORDER BY
 
 ```
 
-Click **Check my progress** *Calculate the average speed of Yellow taxi trips in 2015*
+Click **Check my progress** _Calculate the average speed of Yellow taxi trips in 2015_
 
 ## Identify an objective
 
@@ -84,7 +85,7 @@ WITH params AS (
   
 ```
 
-Click **Check my progress** *Test whether fields are good inputs to your fare forecasting model*
+Click **Check my progress** _Test whether fields are good inputs to your fare forecasting model_
 
 ## Create a BigQuery dataset to store models
 
@@ -93,11 +94,11 @@ Click **Check my progress** *Test whether fields are good inputs to your fare fo
 For **Dataset ID**, type `taxi`.
 Leave the other values at their defaults.
 
-Click **Check my progress** *Create a BigQuery dataset to store models*
+Click **Check my progress** _Create a BigQuery dataset to store models_
 
 ## Select a BQML model type and specify options
 
-*Which model type should you choose for predicting taxi cab fare (numeric value)?*
+_Which model type should you choose for predicting taxi cab fare (numeric value)?_
 
 - Linear Regression
 
@@ -137,7 +138,7 @@ WITH params AS (
 
 ```
 
-Click **Check my progress** *Create a taxifare model*
+Click **Check my progress** _Create a taxifare model_
 
 ## Evaluate classification model performance
 
@@ -182,7 +183,7 @@ FROM
 
 ```
 
-Click **Check my progress** *Evaluate the classification model performance**
+Click **Check my progress** _Evaluate the classification model performance_*
 
 ## Predict taxi fare amount
 
@@ -227,7 +228,7 @@ FROM
 
 ```
 
-Click **Check my progress** *Predict taxi fare amount*
+Click **Check my progress** _Predict taxi fare amount_
 
 ## Improving the model with Feature Engineering
 
@@ -375,7 +376,6 @@ WHERE trip_distance > 0 AND fare_amount BETWEEN 6 and 200
 
 ### Test your Understanding
 
-*A lower RSME value usually indicates a more accurate BQML model.*
+_A lower RSME value usually indicates a more accurate BQML model._
 
 - True
-
