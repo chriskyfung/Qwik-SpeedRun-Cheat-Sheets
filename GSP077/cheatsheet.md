@@ -1,6 +1,5 @@
 # GSP077 TensorFlow for Poets
 
-
 SSH
 
 ```
