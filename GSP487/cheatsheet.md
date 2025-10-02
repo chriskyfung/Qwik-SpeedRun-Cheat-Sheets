@@ -42,7 +42,7 @@ Open [Actions on Google Developer Console](http://console.actions.google.com/) i
 
 4. check the **REQUIRED**
 
-5. **Define prompts** > 
+5. **Define prompts** >
 
     `Who do you want to look up?`
 
@@ -150,4 +150,3 @@ Open [Actions on Google Developer Console](http://console.actions.google.com/) i
 ### Test the application with the simulator
 
 Enter `Talk to my test app` in the Input area
-
