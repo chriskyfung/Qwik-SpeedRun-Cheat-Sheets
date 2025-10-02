@@ -10,7 +10,6 @@ _last updated: 2021-04-17_
 -Reprovision, destroy, and update infrastructure.
 -Test connectivity between the resources you've created.
 
-
 ## Task 1. Create the configuration files
 
 ```bash
@@ -145,7 +144,6 @@ terraform apply
 ```
 
 ## Task 4. Modify and update infrastructure
-
 
 ## Task 5. Taint and destroy resources
 
