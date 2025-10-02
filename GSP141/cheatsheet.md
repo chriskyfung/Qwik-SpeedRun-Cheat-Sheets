@@ -2,7 +2,6 @@
 
 _last update: 2021-04-25_
 
-
 Launch a VM instance
 
 SSH
@@ -14,11 +13,11 @@ apt-get update
 apt-get install -y protobuf-compiler python3-pil python3-lxml python3-pip python3-dev git
 ```
 
-```
+```bash
 pip3 install Flask==1.1.1 WTForms==2.2.1 Flask_WTF==0.14.2 Werkzeug==0.16.0
 ```
 
-```
+```bash
 pip3 install tensorflow==2.0.0b1 -y
 
 ```
