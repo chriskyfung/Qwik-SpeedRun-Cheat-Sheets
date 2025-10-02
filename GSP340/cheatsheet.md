@@ -2,9 +2,10 @@
 
 _last modified on 2021-06-25_
 _last verified on 2021-06-25_
+
 ## Task 1: Create a table partitioned by date
 
-https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#creating_a_partitioned_table_from_the_result_of_a_query
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#creating_a_partitioned_table_from_the_result_of_a_query>
 
 ```SQL
 CREATE OR REPLACE TABLE oxford_policy_tracker.partitioned_without_GBR_BRA_CAN_USA
@@ -24,9 +25,8 @@ WHERE
 
 ## Task 2: Add new columns to your table
 
-https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#adding_columns
-https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#adding_columns
-
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#adding_columns>
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#adding_columns>
 
 ```SQL
 ALTER TABLE oxford_policy_tracker.partitioned_without_GBR_and_USA
@@ -45,7 +45,7 @@ ADD COLUMN mobility STRUCT<
 
 ## Task 3: Add country population data to the population column
 
-https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_using_joins
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_using_joins>
 
 ```SQL
 CREATE OR REPLACE TABLE oxford_policy_tracker.pop_data_2019 AS
@@ -75,7 +75,7 @@ WHERE
 
 ## Task 4: Add country area data to the country_area column
 
-https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_using_joins
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_using_joins>
 
 ```SQL
 UPDATE
@@ -89,10 +89,9 @@ WHERE
 
 ```
 
-
 ## Task 5: Populate the mobility record data
 
-https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_nested_fields
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_nested_fields>
 
 ```SQL
 UPDATE
@@ -138,7 +137,7 @@ ORDER BY country_name ASC
 
 ```
 
-https://www.sqlshack.com/sql-union-vs-union-all-in-sql-server/
+<https://www.sqlshack.com/sql-union-vs-union-all-in-sql-server/>
 
 ```SQL
 SELECT DISTINCT country_name
@@ -152,12 +151,10 @@ ORDER BY country_name ASC
 
 ```
 
-## Congratulations!
-
+## Congratulations
 
 Your first step is to create a new dataset and table. The starting point for the machine learning model will be the oxford_policy_tracker table in the [COVID 19 Government Response public dataset](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=covid19_govt_response&page=dataset) which contains details of different actions
 
-
 References:
-https://newstars.tistory.com/m/502?category=72798
-https://github.com/GirishSharma5956/Build-and-Optimize-Data-Warehouses-with-BigQuery-Challenge-Lab/blob/master/Build%20and%20Optimize.txt#L42
+<https://newstars.tistory.com/m/502?category=72798>
+<https://github.com/GirishSharma5956/Build-and-Optimize-Data-Warehouses-with-BigQuery-Challenge-Lab/blob/master/Build%20and%20Optimize.txt#L42>
