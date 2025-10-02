@@ -135,6 +135,7 @@ docker container kill $(docker ps -aq)
 
 docker run -p 8080:8080 --name valkyrie-app valkyrie-app:v0.0.2 &
 ```
+
 ![](/img/valkyrie-app-v0.0.2.png)
 
 ```bash
@@ -208,7 +209,7 @@ echo "https://source.developers.google.com/p/${PROJECT_ID}/r/valkyrie-app"
 
 ![](/img/Multibranch_Pipeline.png)
 
-#### Make two changes to your files before you commit and build:
+#### Make two changes to your files before you commit and build
 
 ```bash
 sed -i -e 's/YOUR_PROJECT/'"${PROJECT_ID}"'/g' Jenkinsfile
@@ -232,4 +233,4 @@ Manually trigger a build
 ![](/img/valkyrie-app-dev.2.png)
 
 **Check My Progress**
-__Create a pipeline in Jenkins to deploy your app__
+**Create a pipeline in Jenkins to deploy your app**
