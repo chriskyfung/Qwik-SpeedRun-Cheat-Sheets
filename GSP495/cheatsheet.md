@@ -1,5 +1,4 @@
-Palo Alto Networks Security Adapter for the Istio Service Mesh
-==============================================================
+# GSP495 Palo Alto Networks Security Adapter for the Istio Service Mesh
 
 1. Create **Kubernetes cluster** 
    - Name: `pan-istio-adapter`
