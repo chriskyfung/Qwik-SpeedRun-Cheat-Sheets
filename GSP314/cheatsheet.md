@@ -1,18 +1,18 @@
 # **GSP314** Cloud Architecture: Challenge Lab
 
-### Tasks
+## Tasks
 
 1. Create the Production Environment
 2. Setup the Admin instance
 3. Verify the Spinnaker deployment
 
-![](/img/lab_provisioning.png)
+![Lab provisioning](/img/lab_provisioning.png)
 
-![](/img/deployment-manager.png)
+![Deployment Manager](/img/deployment-manager.png)
 
 ## Task 1: Create the production environment
 
-#### Create the network using the Deployment Manager configuration
+### Create the network using the Deployment Manager configuration
 
 1. In the Console, navigate to Navigation menu > Compute Engine > VM instances.
 
@@ -20,33 +20,35 @@
 
 3. In the SSH window,
 
-```bash
-gcloud config set compute/region us-east1
-gcloud config set compute/zone us-east1-b
+   ```bash
+   gcloud config set compute/region us-east1
+   gcloud config set compute/zone us-east1-b
+ 
+   export project=$(gcloud info --format='value(config.project)')
+ 
+   cd /work/dm
+ 
+   ls
+   ```
 
-export project=$(gcloud info --format='value(config.project)')
-
-cd /work/dm
-
-ls
-```
-![](/img/jumphost-ssh.png)
+   ![cd /work/dm && ls](/img/jumphost-ssh.png)
 
 4. Replace `SET_REGION` to **us-east1** in `prod-network.yaml`
 
-```bash
-sed -i 's/SET_REGION/us-east1/g' prod-network.yaml
-cat prod-network.yaml
-```
+   ```bash
+   sed -i 's/SET_REGION/us-east1/g' prod-network.yaml
+   cat prod-network.yaml
+   ```
+
 5. Create the **kraken-prod-vpc**
 
-```bash
-gcloud deployment-manager deployments create kraken-prod-vpc --config prod-network.yaml
-```
+   ```bash
+   gcloud deployment-manager deployments create kraken-prod-vpc --config prod-network.yaml
+   ```
 
-![](/img/create-kraken-prod-vpc.png)
+   ![gcloud deployment-manager deployments create kraken-prod-vpc --config prod-network.yaml](/img/create-kraken-prod-vpc.png)
 
-#### Create a cluster
+### Create a cluster
 
 Click on Navigation menu > Kubernetes Engine > Cluster
 
@@ -54,9 +56,9 @@ Click on Navigation menu > Kubernetes Engine > Cluster
 gcloud beta container --project "$project" clusters create "kraken-prod" --zone "us-east1-b" --num-nodes "2" --network "projects/$project/global/networks/kraken-prod-vpc" --subnetwork "projects/$project/regions/us-east1/subnetworks/kraken-prod-subnet"
 ```
 
-![](kraken-prod-cluster.png)
+![Navigation menu > Kubernetes Engine > Cluster](/img/kraken-prod-cluster.png)
 
-![](/img/work-k8s.png)
+![cd /work/k8s && ls](/img/work-k8s.png)
 
 ```bash
 cd /work/k8s
@@ -79,7 +81,7 @@ kubectl create -f service-prod-frontend.yaml
 kubectl get services
 ```
 
-![](/img/deploy-pods-and-services.png)
+![kubectl create commands](/img/deploy-pods-and-services.png)
 
 **Click Check my progress to verify the objective.**
 
@@ -100,12 +102,12 @@ _Create the Production Environment_
 
 3. Set the following values, leave all other values at their defaults:
 
-| Property	| Value (type value or select option as specified) |
-| ----------| --------------------|
-| Name	    | kraken-admin        |
-| Region	| us-east1            |
-| Zone      | us-east1-b          |
-| Machine type	| 1 vCPU (f1-micro) |
+   | Property     | Value (type value or select option as specified) |
+   | ------------ | ------------------------------------------------ |
+   | Name         | kraken-admin                                     |
+   | Region       | us-east1                                         |
+   | Zone         | us-east1-b                                       |
+   | Machine type | 1 vCPU (f1-micro)                                |
 
 4. Click Management, security, disks, networking, sole tenancy.
 
@@ -115,14 +117,14 @@ _Create the Production Environment_
 
 7. Set the following values, leave all other values at their defaults:
 
-| Property |	Value (type value or select option as specified) |
-| --       | --                   |
-| Network	| kraken-prod-vpc
-| Subnetwork|	kraken-prod-subnet |
-| Network	| kraken-mgmt-vpc
-| Subnetwork|	kraken-mgmt-subnet |
+  | Property   | Value (type value or select option as specified) |
+  | ---------- | ------------------------------------------------ |
+  | Network    | kraken-prod-vpc                                  |
+  | Subnetwork | kraken-prod-subnet                               |
+  | Network    | kraken-mgmt-vpc                                  |
+  | Subnetwork | kraken-mgmt-subnet                               |
 
-![](/img/kraken-admin-network.png)
+  ![Netwoking tab](/img/kraken-admin-network.png)
 
 ### Create a Monitoring workspace
 
@@ -132,34 +134,34 @@ _Create the Production Environment_
 
 3. Click **Add Condition**.
 
-Resource Type: CPU Usage
-Metric `compute.googleapis.com/instance/cpu/utilization`
+   - Resource Type: CPU Usage
+   - Metric `compute.googleapis.com/instance/cpu/utilization`
 
-Threshold: 0.5 for 1 minute.
+   - Threshold: 0.5 for 1 minute.
 
-![](/img/alerting.png)
+   ![Alert Conditions](/img/alerting.png)
 
 ## Task 3: Verify the Spinnaker deployment
 
-#### Connect the Spinnaker console.
+### Connect the Spinnaker console
 
 1. In the Google Cloud Platform Console, click on **Navigation menu** > **Kubernetes Engine** > **Service & Ingress**
 
 2. Search **spin-deck**, and click **Port Forward**
 
-![](/img/spin-deck.png)
-![](/img/port-forwarding.png)
-![](/img/port-forwarding-cmd.png)
+   ![spin-deck](/img/spin-deck.png)
+   ![Port Forwarding](/img/port-forwarding.png)
+   ![Opened Cloud Shell](/img/port-forwarding-cmd.png)
 
 3. To open the Spinnaker user interface, click the **Web Preview** icon at the top of the Cloud Shell window and select **Preview on port 8080**.
 
-![](/img/spinnaker.png)
+   ![Spinnaker user interface](/img/spinnaker.png)
 
-#### Configure your build triggers
+### Configure your build triggers
 
-![](/img/cloud-build-trigger.png)
+![Cloud Build Trigger](/img/cloud-build-trigger.png)
 
-#### Clone your source code repository
+### Clone your source code repository
 
 ![](/img/clone-sample-app.png)
 
@@ -167,24 +169,24 @@ Threshold: 0.5 for 1 minute.
 
 1. In Cloud Shell tab and download the sample application source code:
 
-```bash
-export PROJECT=$(gcloud info --format='value(config.project)')
+   ```bash
+   export PROJECT=$(gcloud info --format='value(config.project)')
+   
+   git clone https://source.developers.google.com/p/$PROJECT/r/sample-app
+   
+   cd sample-app
+   
+   ls
+   
+   git config --list
+   
+   
+   git config --global user.email "$(gcloud config get-value core/account)"
+   
+   git config --global user.name $PROJECT
+   ```
 
-git clone https://source.developers.google.com/p/$PROJECT/r/sample-app
-
-cd sample-app
-
-ls
-
-git config --list
-
-
-git config --global user.email "$(gcloud config get-value core/account)"
-
-git config --global user.name $PROJECT
-```
-
-![](/img/git_config.png)
+   ![](/img/git_config.png)
 
 ### Triggering your pipeline from code changes
 
