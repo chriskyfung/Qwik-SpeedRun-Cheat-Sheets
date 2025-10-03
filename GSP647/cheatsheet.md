@@ -1,4 +1,3 @@
-
 # GSP647 Configuring IAM Permissions with gcloud
 
 _last modified: 2020-08-10_
