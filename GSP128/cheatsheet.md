@@ -1,0 +1,34 @@
+# GSP128 Mapping the NYC Subway
+
+_last modified: 2020-02-10_
+
+Open [Google API Console](https://console.developers.google.com/flows/enableapi?apiid=maps_backend&reusekey=true)
+
+**MUST** Enable the Google Maps JavaScript API from the Cloud Shell in order to pass the checkpoint
+
+```bash
+# gcloud services enable maps-backend.googleapis.com
+gcloud config set project $DEVSHELL_PROJECT_ID
+API_KEY=$(curl -H "Authorization: Bearer $(gcloud auth print-access-token)"    -X POST https://apikeys.googleapis.com/v1/projects/$DEVSHELL_PROJECT_ID/apiKeys | jq -r ".currentKey")
+echo $API_KEY
+
+wget https://github.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets/blob/GSP128/nyc-subway.zip?raw=true
+mv nyc-subway.zip?raw=true nyc-subway.zip
+mkdir nyc-subway
+unzip nyc-subway.zip -d nyc-subway
+
+cd nyc-subway
+cd static
+sed -i 's/YOUR_API_KEY/'${API_KEY}'/g' index.html
+cat index.html
+cd ..
+go get github.com/paulmach/go.geojson
+go get github.com/dhconnelly/rtreego
+go get github.com/smira/go-point-clustering
+
+cd
+mv nyc-subway/ gopath/src/
+cd gopath/src/nyc-subway/
+gcloud app deploy
+
+```
