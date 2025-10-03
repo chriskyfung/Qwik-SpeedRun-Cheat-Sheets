@@ -1,4 +1,4 @@
-# GSP787
+# GSP787 Insights from Data with BigQuery: Challenge Lab (COVID-19 JHU CSSE EU Dataset)
 
 _late update_: 2020-08-25
 
