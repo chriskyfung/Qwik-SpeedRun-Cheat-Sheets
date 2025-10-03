@@ -2,6 +2,7 @@
 
 _last updated on 2021-09-17_
 _last verified on 2021-09-17_
+
 ## Create the Notebook instance
 
 1. Search **Notebooks AI Platform**.
