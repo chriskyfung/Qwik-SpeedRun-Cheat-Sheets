@@ -1,4 +1,4 @@
-GSP2181 [Introduction to SQL for BigQuery and Cloud SQL](https://google.qwiklabs.com/games/447/labs/1371)
+GSP281 [Introduction to SQL for BigQuery and Cloud SQL](https://google.qwiklabs.com/games/447/labs/1371)
 ===
 
 _Last update_: 2020-06-20
