@@ -1,4 +1,4 @@
-**GSP642** Importing Data to a Firestore Database
+# GSP642 Importing Data to a Firestore Database
 
 _last update: 2020-08-28_
 
