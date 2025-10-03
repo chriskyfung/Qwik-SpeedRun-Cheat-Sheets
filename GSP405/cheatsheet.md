@@ -1,4 +1,4 @@
-Palo Alto Networks VM-Series Firewall: Protecting a Two-Tiered App on GCP
+GSP405 Palo Alto Networks VM-Series Firewall: Protecting a Two-Tiered App on GCP
 =========================================================================
 
 [Web-Server-PublicIP-Address]
