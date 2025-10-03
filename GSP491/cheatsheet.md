@@ -1,5 +1,4 @@
-SpeedRun for Palo Alto Networks VM-Series Firewall: Scale Out Protection with Load Balancers
-==============================================================================
+# GSP491 SpeedRun for Palo Alto Networks VM-Series Firewall: Scale Out Protection with Load Balancers
 
 1. Go to **Compute Engines**, click `firewall-instance-1`, Copy the External IP of `nic1` network interface.
 <br>
