@@ -1,4 +1,4 @@
-#  GSP125 Speaking with a Webpage - Streaming Speech Transcripts
+# GSP125 Speaking with a Webpage - Streaming Speech Transcripts
 
 Last update: 2020-05-05
 
