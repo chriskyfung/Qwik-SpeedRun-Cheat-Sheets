@@ -1,0 +1,292 @@
+# GSP328 Introduction to Serverless: Cloud Run Development Challenge Lab
+
+_last updated on 2021-06-24_
+_last verified on 2021-06-24_
+
+### Checkpoints
+
+1. Deploy a Public Billing Service
+1. Deploy the Frontend Service
+1. Deploy a Private Billing Service
+1. Create a Billing Service Account
+1. Deploy a Billing Service in Production
+1. Create a Frontend Service Account
+1. Deploy the Frontend Service in Production
+
+[Architecture to be implemented](https://cdn.qwiklabs.com/iqU2yEJH%2FtmFyBvZoE0PWT5iiCUSefFq2EcCvRcAeuQ%3D)
+
+## Provision the Qwiklabs environment
+
+```bash
+gcloud config set project \
+  $(gcloud projects list --format='value(PROJECT_ID)' \
+  --filter='qwiklabs-gcp')
+
+gcloud config set run/region us-central1
+
+gcloud config set run/platform managed
+
+git clone https://github.com/rosera/pet-theory.git && cd ~/pet-theory/lab07
+
+```
+
+[Review the files on GitHub](https://github.com/rosera/pet-theory/tree/master/lab07)
+
+## Task 1: Enable a Public Service
+
+
+[Architecture for the Billing Service API](https://cdn.qwiklabs.com/8dBgyQ%2BdU%2BiNlwvUBUvgIx%2FZK3M6wZU45ZWVvZgH92M%3D)
+
+### 1.1 Build an image using Cloud Build
+
+```bash
+cd unit-api-billing
+
+npm install express
+
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/billing-staging-api:0.1
+
+```
+
+### 1.2 Deploy a Cloud Run service as an unauthenticated service
+
+```bash
+gcloud run deploy public-billing-service \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/billing-staging-api:0.1 --allow-unauthenticated
+
+```
+
+### 1.3 Test service responds when the endpoint is accessed
+
+```bash
+BILLING_SERVICE_URL=$(gcloud run services describe public-billing-service --format="value(status.url)")
+
+echo $BILLING_SERVICE_URL
+
+```
+
+## Task 2: Deploy a Frontend Service
+
+[Architecture for the Frontend Service](https://cdn.qwiklabs.com/%2FQFrJR%2B%2FcGwmGEa1nwqzmhxhKCGyCPoA9kIOjk81bls%3D)
+
+### 2.1 Build an image using Cloud Build
+
+```bash
+gcloud config set project \
+  $(gcloud projects list --format='value(PROJECT_ID)' \
+  --filter='qwiklabs-gcp')
+
+gcloud config set run/region us-central1
+
+gcloud config set run/platform managed
+
+cd ~/pet-theory/lab07/staging-frontend-billing
+
+npm install express
+npm install hbs
+
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-staging:0.1
+
+```
+
+### 2.2 Deploy the image to Cloud Run as unauthenticated service
+
+```bash
+gcloud run deploy frontend-staging-service \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-staging:0.1 --allow-unauthenticated
+
+```
+
+[Allowing public (unauthenticated) access](https://cloud.google.com/run/docs/authenticating/public#command-line)
+
+### 2.3 Service should respond when the endpoint is accessed
+
+```bash
+STAGING_FRONTEND_URL=$(gcloud run services describe frontend-staging-service --format="value(status.url)")
+
+echo $STAGING_FRONTEND_URL
+
+```
+
+## Task 3: Deploy a Private Service
+
+[Architecture for the Staging](https://cdn.qwiklabs.com/1MEeYHgxetOOc2QpDo8cUP3rKcXp2Uv2BzWc2tWdRF8%3D)
+
+### 3.1 Delete the existing Billing Service
+
+```bash
+gcloud config set project \
+  $(gcloud projects list --format='value(PROJECT_ID)' \
+  --filter='qwiklabs-gcp')
+
+gcloud config set run/region us-central1
+
+gcloud config set run/platform managed
+
+cd ~/pet-theory/lab07/staging-api-billing
+
+npm install express
+
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/billing-staging-api:0.2
+
+```
+
+### 3.2 Build an image using Cloud Build
+
+```bash
+BILLING_SERVICE=private-billing-service
+
+gcloud run deploy $BILLING_SERVICE \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/billing-staging-api:0.2 \
+  --no-allow-unauthenticated
+
+```
+
+### 3.3 Deploy the image to Cloud Run requiring authentication
+
+```bash
+BILLING_URL=$(gcloud run services describe $BILLING_SERVICE \
+  --platform managed \
+  --region us-central1 \
+  --format "value(status.url)")
+
+curl -X get -H "Authorization: Bearer $(gcloud auth print-identity-token)" $BILLING_URL
+
+```
+
+## Task 4: Create a Billing Service Account
+
+[Architecture for the Billing Service Account](https://cdn.qwiklabs.com/CpXydDKvqje9LDQi6euOsI2ifMWMC6OWVVDssOos3ow%3D)
+
+### Create a Service Account
+
+```bash
+gcloud iam service-accounts create billing-service-sa --display-name "Billing Service Cloud Run"
+
+PROJECT_NUMBER=$(gcloud projects list --filter="qwiklabs-gcp" --format='value(PROJECT_NUMBER)')
+
+gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=serviceAccount:service-$PROJECT_NUMBER@serverless-robot-prod.iam.gserviceaccount.com --role=roles/iam.serviceAccountTokenCreator
+
+```
+
+https://cloud.google.com/iam/docs/creating-managing-service-accounts#iam-service-accounts-create-gcloud
+
+[Authenticating developers](https://cloud.google.com/run/docs/authenticating/developers#gcloud)
+
+## Task 5: Deploy the Billing Service
+
+[Architecture for the Production](https://cdn.qwiklabs.com/1MEeYHgxetOOc2QpDo8cUP3rKcXp2Uv2BzWc2tWdRF8%3D)
+
+### 5.1 Deploy the image to Cloud Run
+
+```bash
+gcloud config set project \
+  $(gcloud projects list --format='value(PROJECT_ID)' \
+  --filter='qwiklabs-gcp')
+
+gcloud config set run/region us-central1
+
+gcloud config set run/platform managed
+
+cd ~/pet-theory/lab07/prod-api-billing
+
+npm install express
+
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/billing-prod-api:0.1
+  
+```
+
+### 5.2 Enable Authentication
+
+```bash
+gcloud run services add-iam-policy-binding billing-prod-service \
+  --member=serviceAccount:billing-service-sa@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com \
+  --role='roles/run.invoker'
+
+gcloud run services add-iam-policy-binding private-billing-service \
+  --member=serviceAccount:billing-service-sa@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com \
+  --role='roles/run.invoker'
+
+```
+
+### 5.3 Enable Service Account
+
+```bash
+gcloud iam service-accounts enable billing-service-sa@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
+
+```
+
+### 5.4 Service should respond when the endpoint is accessed
+
+```bash
+$PROD_BILLING_SERVICE=billing-prod-service
+PROD_BILLING_URL=$(gcloud run services \
+  describe $PROD_BILLING_SERVICE \
+  --platform managed \
+  --region us-central1 \
+  --format "value(status.url)")
+
+curl -X get -H "Authorization: Bearer \
+  $(gcloud auth print-identity-token)" \
+  $PROD_BILLING_URL
+
+```
+
+## Task 6: Frontend Service Account
+
+[Architecture for the Billing Service Account](https://cdn.qwiklabs.com/jfpWAjnFUlDAZcybQr8YLcd6BP3MJ2hjgL8kn54L23s%3D)
+
+- Create Service
+- Apply Service Account for Frontend Service
+- Give Service Account run.invoker permission
+- Bind Account to Service
+
+```bash
+gcloud iam service-accounts create frontend-service-sa --display-name "Billing Service Cloud Run Invoker"
+
+gcloud run services add-iam-policy-binding frontend-prod-service \
+  --member=serviceAccount:billing-service-sa@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com   --role='roles/run.invoker'
+
+```
+
+## Task 7: Redeploy the Frontend Service
+
+[Architecture for the new Billing Service](https://cdn.qwiklabs.com/%2FQFrJR%2B%2FcGwmGEa1nwqzmhxhKCGyCPoA9kIOjk81bls%3D)
+
+### 7.1 Deploy the image to Cloud Run
+
+```bash
+gcloud config set project \
+  $(gcloud projects list --format='value(PROJECT_ID)' \
+  --filter='qwiklabs-gcp')
+
+gcloud config set run/region us-central1
+
+gcloud config set run/platform managed
+
+cd ~/pet-theory/lab07/prod-frontend-billing
+
+npm install express
+npm install google-auth-library
+npm install got
+npm install hbs
+npm install path
+npm install request
+npm install request-promise
+
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-prod:0.1
+
+gcloud run deploy frontend-prod-service \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-prod:0.1 \
+  --allow-unauthenticated \
+  --service-account frontend-service-sa
+```
+
+### 7.2 Enable Authentication
+### 7.3 Enable Service Account
+### 7.4 Service should respond when the endpoint is accessed
