@@ -1,0 +1,32 @@
+# GSP604 Visualize the 10,000 Bitcoin Pizza Transaction Using BigQuery and AI Notebooks
+
+_last updated on 2021-09-17_
+_last verified on 2021-09-17_
+
+## Create the Notebook instance
+
+1. Search **Notebooks AI Platform**.
+2. Click **+ NEW INSTANCE** at the top of the screen.
+3. Select **Python 3**.
+4. Click CREATE.
+
+## Load the notebook
+
+1. Click **OPEN JUPYTERLAB**.
+
+2. Under Other, click **Terminal**.
+
+```bash
+mkdir training-data-analyst && cd training-data-analyst
+mkdir blogs && cd  blogs
+mkdir bitcoin_network && cd bitcoin_network
+wget https://github.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets/raw/GSP604/graph.png
+wget https://raw.githubusercontent.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets/GSP604/total_flows.csv
+wget https://raw.githubusercontent.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets/GSP604/transactions.csv
+wget https://raw.githubusercontent.com/chriskyfung/Qwik-SpeedRun-Cheat-Sheets/GSP604/visualizing_the_10000_pizza_bitcoin_network.ipynb
+
+```
+
+> Load the notebook
+
+**Run ALL**
