@@ -1,0 +1,160 @@
+# GSP340 Build and Optimize Data Warehouses with BigQuery: Challenge Lab
+
+_last modified on 2021-06-25_
+_last verified on 2021-06-25_
+
+## Task 1: Create a table partitioned by date
+
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#creating_a_partitioned_table_from_the_result_of_a_query>
+
+```SQL
+CREATE OR REPLACE TABLE oxford_policy_tracker.partitioned_without_GBR_BRA_CAN_USA
+PARTITION BY date
+OPTIONS(
+   partition_expiration_days=90,
+   description="oxford_policy_tracker table in the COVID 19 Government Response public dataset with  an expiry time set to 90 days."
+ ) AS
+SELECT 
+    * 
+FROM 
+    `bigquery-public-data.covid19_govt_response.oxford_policy_tracker`
+WHERE 
+    alpha_3_code NOT IN ('GBR', 'BRA', 'CAN','USA')
+
+```
+
+## Task 2: Add new columns to your table
+
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#adding_columns>
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#adding_columns>
+
+```SQL
+ALTER TABLE oxford_policy_tracker.partitioned_without_GBR_and_USA
+ADD COLUMN population INT64,
+ADD COLUMN country_area FLOAT64,
+ADD COLUMN mobility STRUCT<
+  avg_retail      FLOAT64,
+  avg_grocery     FLOAT64,
+  avg_parks       FLOAT64,
+  avg_transit     FLOAT64,
+  avg_workplace   FLOAT64,
+  avg_residential FLOAT64
+  >
+
+```
+
+## Task 3: Add country population data to the population column
+
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_using_joins>
+
+```SQL
+CREATE OR REPLACE TABLE oxford_policy_tracker.pop_data_2019 AS
+SELECT
+  country_territory_code,
+  pop_data_2019
+FROM 
+  `bigquery-public-data.covid19_ecdc.covid_19_geographic_distribution_worldwide`
+GROUP BY
+  country_territory_code,
+  pop_data_2019
+ORDER BY
+  country_territory_code
+
+```
+
+```SQL
+UPDATE
+    `oxford_policy_tracker.partitioned_without_GBR_and_USA` t0
+SET
+    population = t1.pop_data_2019
+FROM `oxford_policy_tracker.pop_data_2019` t1
+WHERE 
+    CONCAT(t0.alpha_3_code) = CONCAT(t1.country_territory_code);
+
+```
+
+## Task 4: Add country area data to the country_area column
+
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_using_joins>
+
+```SQL
+UPDATE
+    `oxford_policy_tracker.partitioned_without_GBR_and_USA` t0
+SET
+    t0.country_area = t1.country_area
+FROM 
+    `bigquery-public-data.census_bureau_international.country_names_area` t1
+WHERE 
+    t0.country_name = t1.country_name
+
+```
+
+## Task 5: Populate the mobility record data
+
+<https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_nested_fields>
+
+```SQL
+UPDATE
+    `oxford_policy_tracker.partitioned_without_GBR_and_USA` t0
+SET
+    t0.mobility.avg_retail      = t1.avg_retail,
+    t0.mobility.avg_grocery     = t1.avg_grocery,
+    t0.mobility.avg_parks       = t1.avg_parks,
+    t0.mobility.avg_transit     = t1.avg_transit,
+    t0.mobility.avg_workplace   = t1.avg_workplace,
+    t0.mobility.avg_residential = t1.avg_residential
+FROM 
+    ( SELECT country_region, date, 
+      AVG(retail_and_recreation_percent_change_from_baseline) as avg_retail,
+      AVG(grocery_and_pharmacy_percent_change_from_baseline)  as avg_grocery,
+      AVG(parks_percent_change_from_baseline) as avg_parks,
+      AVG(transit_stations_percent_change_from_baseline) as avg_transit,
+      AVG( workplaces_percent_change_from_baseline ) as avg_workplace,
+      AVG( residential_percent_change_from_baseline)  as avg_residential
+      FROM `bigquery-public-data.covid19_google_mobility.mobility_report`
+      GROUP BY country_region, date) AS t1
+WHERE 
+    CONCAT(t0.country_name, t0.date) = CONCAT(t1.country_region, t1.date)
+
+
+```
+
+## Task 6: Query missing data in population & country_area columns
+
+```SQL
+SELECT DISTINCT country_name
+FROM `oxford_policy_tracker.partitioned_without_GBR_and_USA`
+WHERE population is NULL 
+ORDER BY country_name ASC
+
+```
+
+```SQL
+SELECT DISTINCT country_name
+FROM `oxford_policy_tracker.partitioned_without_GBR_and_USA`
+WHERE WHERE country_area IS NULL 
+ORDER BY country_name ASC
+
+```
+
+<https://www.sqlshack.com/sql-union-vs-union-all-in-sql-server/>
+
+```SQL
+SELECT DISTINCT country_name
+FROM `oxford_policy_tracker.partitioned_without_GBR_and_USA`
+WHERE population is NULL 
+UNION ALL
+SELECT DISTINCT country_name
+FROM `oxford_policy_tracker.partitioned_without_GBR_and_USA`
+WHERE country_area IS NULL 
+ORDER BY country_name ASC
+
+```
+
+## Congratulations
+
+Your first step is to create a new dataset and table. The starting point for the machine learning model will be the oxford_policy_tracker table in the [COVID 19 Government Response public dataset](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=covid19_govt_response&page=dataset) which contains details of different actions
+
+References:
+<https://newstars.tistory.com/m/502?category=72798>
+<https://github.com/GirishSharma5956/Build-and-Optimize-Data-Warehouses-with-BigQuery-Challenge-Lab/blob/master/Build%20and%20Optimize.txt#L42>
