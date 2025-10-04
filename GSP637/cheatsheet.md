@@ -1,0 +1,69 @@
+# GSP647 Learning TensorFlow: the Hello World of Machine Learning
+
+_last updated: 2021-09-17_
+_last verified: 2021-09-17_
+
+```bash
+gcloud compute instances create instance-1 --machine-type=n1-standard-1 --zone=us-central1-a
+gcloud compute ssh instance-1 --zone=us-central1-a
+
+```
+
+SSH
+
+```bash
+python3 --version
+pip3 --version
+virtualenv --version
+
+sudo apt update
+sudo apt install python3-pip -y
+```
+
+```bash
+sudo pip3 install -U virtualenv  # system-wide install
+
+pip3 --version
+virtualenv --version
+
+virtualenv --system-site-packages -p python3 ./venv
+source ./venv/bin/activate  # sh, bash, ksh, or zsh
+
+```
+
+In venv,
+
+```bash
+pip install --upgrade pip
+pip list  # show packages installed within the virtual environment
+```
+
+```
+pip install --upgrade tensorflow
+
+python -c "import warnings;warnings.simplefilter(action='ignore', category=FutureWarning);import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+
+cat > model.py <<EOF
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+import tensorflow as tf
+import numpy as np
+from tensorflow import keras
+
+from tensorflow.python.util import deprecation
+deprecation._PRINT_DEPRECATION_WARNINGS = False
+
+model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
+model.compile(optimizer='sgd', loss='mean_squared_error')
+
+xs = np.array([-1.0, 0.0, 1.0, 2.0, 3.0, 4.0], dtype=float)
+ys = np.array([-2.0, 1.0, 4.0, 7.0, 10.0, 13.0], dtype=float)
+
+model.fit(xs, ys, epochs=500)
+print(model.predict([10.0]))
+EOF
+
+python model.py
+
+```
