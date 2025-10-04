@@ -1,0 +1,32 @@
+# GSP077 TensorFlow for Poets
+
+SSH
+
+```
+sudo apt-get update
+
+sudo apt-get install -y python-pip python-dev python3-pip python3-dev virtualenv
+```
+
+```
+pip install --upgrade pip
+
+pip install virtualenv
+virtualenv -p python3 venv
+source venv/bin/activate
+
+```
+
+```
+pip install --upgrade tensorflow==1.15.2
+git clone https://github.com/googlecodelabs/tensorflow-for-poets-2
+
+cd tensorflow-for-poets-2
+curl http://download.tensorflow.org/example_images/flower_photos.tgz \
+    | tar xz
+
+mv flower_photos tf_files
+export IMAGE_SIZE=224
+export ARCHITECTURE="mobilenet_0.50_${IMAGE_SIZE}"
+
+```
