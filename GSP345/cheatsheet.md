@@ -1,0 +1,214 @@
+# GSP345 Automating Infrastructure on Google Cloud with Terraform: Challenge Lab
+
+_last updated: 2021-04-17_
+
+**Topics tested:**
+-Import existing infrastructure into your Terraform configuration.
+-Build and reference your own Terraform modules.
+-Add a remote backend to your configuration.
+-Use and implement a module from the Terraform Registry.
+-Reprovision, destroy, and update infrastructure.
+-Test connectivity between the resources you've created.
+
+## Task 1. Create the configuration files
+
+```bash
+touch main.tf variables.tf
+mkdir modules
+cd modules
+mkdir instances
+mkdir storage
+cd instances
+touch instances.tf outputs.tf variables.tf
+cd ../storage
+touch storage.tf outputs.tf variables.tf
+
+```
+
+```bash
+cd /
+nano main.tf
+```
+
+```yaml
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+    }
+  }
+}
+
+provider "google" {
+  version = "3.5.0"
+
+  project = var.project_id
+  region  = "us-central1"
+  zone    = "us-central1-a"
+}
+
+module "instances" {
+   source = "./modules/instances"
+}
+
+module "storage" {
+   source   = "./modules/storage"
+}
+
+```
+
+```bash
+nano variables.tf
+```
+
+```yaml
+variable "project_id" {
+  description = "The ID of the project"
+  type        = string
+  default     = "#FILL IN YOUR PROJECT ID HERE"
+}
+
+variable "region" {
+  description = "The region where infrastructure will be created"
+  type        = string
+  default     = "us-central1"
+}
+
+variable "zone" {
+  description = "The zone where infrastructure will be created"
+  type        = string
+  default     = "us-central1-a"
+}
+
+```
+
+```bash
+cp variables.tf modules/instances/variables.tf
+cp variables.tf modules/storage/variables.tf
+```
+
+## Task 2. Import infrastructure
+
+```bash
+cd modules/instances
+nano instances.tf
+```
+
+```yaml
+resource "google_compute_instance" "tf-instance-1" {
+  name         = "tf-instance-1"
+  project         = var.project_id
+}
+
+resource "google_compute_instance" "tf-instance-2" {
+  name         = "tf-instance-2"
+  project         = var.project_id
+}
+```
+
+```bash
+terraform init
+terraform import module.instances.google_compute_instance.tf-instance-1 i-
+terraform import module.instances.google_compute_instance.tf-instance-2 i-
+```
+
+## Task 3. Configure a remote backend
+
+```bash
+nano /modules/storage/storage.tf
+```
+
+```yaml
+resource "google_storage_bucket" "image-store" {
+  name     = var.project_id
+  location = "US"
+}
+```
+
+```bash
+nano /main.tf
+```
+
+```yaml
+terraform {
+  backend "gcs" {
+    bucket  = var.project_id
+    prefix  = "terraform/state"
+  }
+}
+```
+
+```bash
+terraform plan
+terraform apply
+```
+
+## Task 4. Modify and update infrastructure
+
+## Task 5. Taint and destroy resources
+
+```bash
+terraform taint module.instances.google_compute_instance.tf-instance-3
+terraform plan
+terraform apply
+```
+
+```bash
+nano /modules/instances/instances.tf
+```
+
+_Destroy the third instance tf-instance-3 by removing the resource from the configuration file._
+
+## Task 6. Use a module from the Registry
+
+```bash
+nano /main.tf
+```
+
+```yaml
+module "vpc" {
+    source  = "terraform-google-modules/network/google"
+    version = "2.5.0"
+
+    project_id   = var.project_id
+    network_name = "terraform-vpc"
+    routing_mode = "GLOBAL"
+
+    subnets = [
+        {
+            subnet_name           = "subnet-01"
+            subnet_ip             = "10.10.10.0/24"
+            subnet_region         = var.region
+        },
+        {
+            subnet_name           = "subnet-02"
+            subnet_ip             = "10.10.20.0/24"
+            subnet_region         = var.region
+        }
+    ]
+}
+```
+
+```bash
+nano /modules/instances/instances.tf
+```
+
+## Task 7. Configure a firewall
+
+```bash
+nano /main.tf
+```
+
+```yaml
+resource "google_compute_firewall" "tf-firewall" {
+  name    = "tf-firewall"
+  network = "terraform-vpc"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+```
