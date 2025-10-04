@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="GetProducts-build-soap">
+    <DisplayName>GetProducts Build SOAP</DisplayName>
+    <Add>
+        <Headers>
+            <Header name="SOAPAction"/>
+        </Headers>
+    </Add>
+    <Set>
+        <Headers>
+            <Header name="Content-Type">text/xml; charset=utf-8</Header>
+        </Headers>
+        <Payload contentType="text/xml">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" soapenv:encodingStyle="http://www.w3.org/2003/05/soap-encoding">
+<soapenv:Header/>
+<!-- THERE WAS A PROBLEM GENERATING THE TEMPLATE. PLEASE CREATE THE REQUEST MANUALLY -->
+<soapenv:Body/>
+</soapenv:Envelope>
+</Payload>
+        <Verb>POST</Verb>
+    </Set>
+    <AssignVariable>
+        <Name>forward.target.url</Name>
+        <Value>https://hipster-soap.apigee.io/hipster</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>
